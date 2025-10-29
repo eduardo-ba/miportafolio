@@ -940,7 +940,21 @@ document.addEventListener("DOMContentLoaded", () => {
    * ========================================
    */
 
-    // Carga el tema guardado o prefiere el del sistema
+  /**
+   * FUNCIONALIDAD 0: MODO OSCURO (DARK MODE)
+   */
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      htmlElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️'; // Icono de sol
+      localStorage.setItem('theme', 'dark');
+    } else {
+      htmlElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '🌙'; // Icono de luna
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  // Carga el tema guardado o prefiere el del sistema
   const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   setTheme(savedTheme);
   // Evento del botón
