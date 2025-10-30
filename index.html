@@ -327,10 +327,12 @@
         color: var(--primary-color-static);
         background-color: var(--border-color); /* Nuevo efecto hover */
       }
-
+      
+      /* */
       nav ul li a.active {
         color: var(--primary-color-static);
-        border-bottom-color: var(--primary-color-static);
+        background-color: var(--border-color); /* ¡Igual que el hover! */
+        border-bottom-color: transparent; /* Ya no necesitamos el subrayado */
       }
 
       .traduccion a {
@@ -390,17 +392,25 @@
       }
 
       #home h1 { margin-bottom: 0.5rem; }
+      
+      /* */
       #home h2 {
         font-family: var(--font-body);
-        font-size: 1.5rem;
-        font-weight: 400;
-        color: #555;
-        border: none;
-        margin-bottom: 1rem;
-        background: none;
-        -webkit-text-fill-color: unset;
-        color: #555;
+        font-size: 1.1rem; /* Un poco más pequeño y sutil */
+        font-weight: 700;
+        background-color: #f5f0ff; /* Un lila/púrpura muy pálido */
+        color: var(--primary-color-static); /* Texto morado */
+        padding: 0.4rem 1rem;
+        border-radius: 20px; /* Bordes redondeados */
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color); /* Un borde sutil */
+        
+        /* --- Estas líneas limpian el estilo de "h2" anterior --- */
+        background: #f5f0ff;
+        -webkit-text-fill-color: var(--primary-color-static);
       }
+      
       #home p { font-size: 1.1rem; }
 
       .sociales {
@@ -415,9 +425,13 @@
         border-radius: 50%;
         transition: all var(--transition-speed);
       }
+      
+      /* */
       .sociales a:hover {
         color: var(--primary-color-static);
         background-color: var(--border-color);
+        transform: translateY(-3px); /* <-- AÑADIDO */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* <-- AÑADIDO */
       }
       .sociales a [data-feather] {
         width: 1.5em;
@@ -482,16 +496,27 @@
         margin-top: 0.5rem;
       }
 
-      /* ===== MEJORA: "Píldoras" de tecnología con borde ===== */
+      /* */
       .proyecto ul li {
-        background-color: transparent;
-        border: 1px solid var(--primary-color-static);
+        background-color: #f9f6ff; /* Fondo púrpura muy pálido */
+        border: 1px solid #dcd0f0; /* Borde púrpura sutil */
         color: var(--primary-color-static);
         padding: 0.35rem 0.85rem;
         border-radius: 15px;
         font-size: 0.9rem;
         font-weight: 600;
+        transition: all 0.2s ease-in-out; /* Transición suave */
       }
+      
+      /* Efecto hover para las píldoras */
+      .proyecto ul li:hover {
+        background-color: var(--primary-color-static);
+        color: #FFFFFF; /* Texto blanco al pasar el mouse */
+        transform: scale(1.03); /* Ligero zoom */
+        border-color: var(--primary-color-static);
+      }
+      /* */
+
 
       .cta-button, .proyecto a {
         display: inline-flex;
@@ -942,8 +967,8 @@
       .habilidad-item i {
         font-size: 3rem; /* Tamaño del logo */
         margin-bottom: 0.5rem;
-        /* Usa el color primario de tu paleta */
-        color: var(--primary-color-static);
+        /* */
+        /* color: var(--primary-color-static); <-- Esta línea fue eliminada */
       }
 
       .habilidad-item span {
@@ -1028,7 +1053,7 @@
             <h1 data-key="home_name">Luis Eduardo Barrón Alvarez</h1>
             <p><span data-key="home_email_label">Correo:</span> <a href="mailto:leduardobarronmail.com">leduardobarronmail.com</a></p>
 
-            <h2 data-key="home_subtitle">Ingeniero en TI</h2>
+            <h2 data-key="home_subtitle">Técnico en Servidores y Redes</h2>
 
             <ul class="sociales">
                 <li><a href="https://github.com/eduardo-ba" target="_blank" rel="noopener noreferrer" aria-label="Mi perfil de GitHub" data-key="home_github_aria"><i data-feather="github"></i></a></li>
@@ -1056,7 +1081,7 @@
                     <li>configuración IP estática</li>
                 </ul>
 
-                <a href="https://github.com/eduardo-ba/red-CETIS127" target="_blank" rel="noopener noreferrer" data-key="btn_code"><i data-feather="github"></i> Ver Código Fuente</a>
+                <a href="https://github.com/eduardo-ba/red-CETIS127" target="_blank" rel="noopener noreferrer" data-key="btn_code"></i> Ver Proyecto</a>
             </article>
 
             <article class="proyecto reveal">
@@ -1076,7 +1101,7 @@
                     <li>Simulación de tráfico</li>
                 </ul>
 
-                <a href="https://github.com/eduardo-ba/packet-tracer-practicas" target="_blank" rel="noopener noreferrer" data-key="btn_code"><i data-feather="github"></i> Ver Código Fuente</a>
+                <a href="https://github.com/eduardo-ba/packet-tracer-practicas" target="_blank" rel="noopener noreferrer" data-key="btn_code"> Ver Proyecto</a>
             </article>
         </section>
 
@@ -1270,8 +1295,11 @@
         <section id="contacto" class="reveal">
             <h2 data-key="contact_title">Hablemos</h2>
             <p data-key="contact_desc">Estoy buscando activamente oportunidades y siempre estoy abierto a conectar. ¡Envíame un correo!</p>
-            <a href="mailto:leduardobarronmail.com" class="cta-button" data-key="btn_contact">
-                <i data-feather="send"></i> Contactar
+            <a href="mailto:leduardobarron@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20Luis,%20vi%20tu%20portafolio%20y%20me%20gustaría%20contactarte%20sobre..." class="cta-button" data-key="btn_contact">
+              <i data-feather="send">
+            
+              </i> 
+              Contactar
             </a>
         </section>
 
