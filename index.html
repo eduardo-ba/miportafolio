@@ -13,17 +13,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 
     <style>
-      /* ------------------------- */
-      /* --- VARIABLES Y GLOBALES --- */
-      /* ------------------------- */
+
       :root {
-        /* Gradiente principal (NUEVA PALETA: Morado/Índigo) */
+
         --primary-gradient: linear-gradient(45deg, #6f42c1, #8a2be2);
-        --primary-color-static: #6f42c1; /* Para texto y bordes */
-        --secondary-color: #5a359a; /* Más oscuro */
+        --primary-color-static: #6f42c1;
+        --secondary-color: #5a359a; 
         
         --text-dark: #222;
-        --text-light: #f4f4f4; /* Usado para texto sobre botones de gradiente */
+        --text-light: #f4f4f4; 
         --bg-color: #FFFFFF;
         --card-bg: #FFFFFF;
         --border-color: #eaeaea;
@@ -33,15 +31,15 @@
         --font-body: 'Lato', sans-serif;
         --transition-speed: 0.3s;
         
-        /* Sombra moderna (NUEVA PALETA) */
-        --shadow-color: 270, 50%, 85%; /* Tono púrpura claro */
+   
+        --shadow-color: 270, 50%, 85%; 
         --shadow-elevation-medium:
           0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
           0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.34),
           2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.34);
       }
 
-      /* --- MODO OSCURO ELIMINADO --- */
+   
 
       * {
         margin: 0;
@@ -51,7 +49,7 @@
 
       html {
         font-size: 16px;
-        /* El JS se encarga del scroll-behavior */
+   
       }
 
       body {
@@ -62,20 +60,18 @@
         transition: background-color var(--transition-speed), color var(--transition-speed);
       }
 
-      /* ---------------------------------- */
-      /* --- NUEVA ANIMACIÓN DE BURBUJAS --- */
-      /* ---------------------------------- */
+    
 
       .area-animada {
-        background: var(--bg-color); /* Fondo estático */
+        background: var(--bg-color);
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
-        z-index: -1; /* ¡IMPORTANTE! Detrás de todo el contenido */
-        pointer-events: none; /* Evita que se pueda hacer clic en él */
-        overflow: hidden; /* Oculta las burbujas cuando se salen */
+        z-index: -1;
+        pointer-events: none; 
+        overflow: hidden;
         transition: background var(--transition-speed);
       }
 
@@ -94,17 +90,13 @@
         width: 20px;
         height: 20px;
         
-        /* Usamos un color de tu paleta (morado) con transparencia */
-        background: hsla(270, 70%, 60%, 0.2); /* MODO CLARO */
+        background: hsla(270, 70%, 60%, 0.2); 
         
-        /* Nombre de la animación y duración base */
         animation: animate-burbuja 25s linear infinite;
         
-        /* Inician abajo, fuera de la pantalla */
         bottom: -150px; 
       }
 
-      /* --- Variaciones de las burbujas (tamaño, posición, velocidad) --- */
 
       .circulos li:nth-child(1) {
         left: 25%;
@@ -118,7 +110,7 @@
         width: 20px;
         height: 20px;
         animation-delay: 2s;
-        animation-duration: 12s; /* Más rápida */
+        animation-duration: 12s;
       }
 
       .circulos li:nth-child(3) {
@@ -133,7 +125,7 @@
         width: 60px;
         height: 60px;
         animation-delay: 0s;
-        animation-duration: 18s; /* Más lenta */
+        animation-duration: 18s;
       }
 
       .circulos li:nth-child(5) {
@@ -162,7 +154,7 @@
         width: 25px;
         height: 25px;
         animation-delay: 15s;
-        animation-duration: 45s; /* Muy lenta */
+        animation-duration: 45s;
       }
 
       .circulos li:nth-child(9) {
@@ -178,22 +170,22 @@
         width: 150px;
         height: 150px;
         animation-delay: 0s;
-        animation-duration: 11s; /* Rápida */
+        animation-duration: 11s;
       }
 
 
-      /* --- La animación en sí --- */
+    
 
       @keyframes animate-burbuja {
         0% {
           transform: translateY(0) rotate(0deg);
           opacity: 1;
-          border-radius: 0; /* Empieza como un cuadrado */
+          border-radius: 0;
         }
         100% {
           transform: translateY(-1000px) rotate(720deg);
           opacity: 0;
-          border-radius: 50%; /* Termina como un círculo */
+          border-radius: 50%;
         }
       }
 
@@ -206,9 +198,8 @@
         padding-right: 1rem;
       }
 
-      /* ===== MEJORA: Más espacio entre secciones ===== */
       section:not(#home) {
-        padding: 5rem 1rem; /* Aumentado de 4rem a 5rem */
+        padding: 5rem 1rem; 
         border-top: 1px solid var(--border-color);
       }
       #home { 
@@ -267,9 +258,7 @@
       }
 
 
-      /* ------------------------- */
-      /* --- HEADER Y NAVEGACIÓN --- */
-      /* ------------------------- */
+
       header {
         position: fixed;
         top: 0;
@@ -304,16 +293,15 @@
         align-items: center;
       }
 
-      /* --- ESTILO DE ENLACE DE NAVEGACIÓN ACTUALIZADO --- */
       nav ul li a {
         font-family: var(--font-heading);
         font-weight: 600;
         text-transform: uppercase;
         font-size: 0.9rem;
-        padding: 0.5rem 0.75rem; /* Padding añadido */
-        border-radius: 4px; /* Añadido para el hover */
+        padding: 0.5rem 0.75rem; 
+        border-radius: 4px; 
         border-bottom: 2px solid transparent;
-        /* Transición actualizada */
+     
         transition: border-color var(--transition-speed), color var(--transition-speed), background-color var(--transition-speed);
         text-decoration: none;
         color: var(--text-dark);
@@ -322,17 +310,16 @@
         color: var(--text-dark);
       }
 
-      /* --- EFECTO HOVER AÑADIDO --- */
+   
       nav ul li a:hover {
         color: var(--primary-color-static);
-        background-color: var(--border-color); /* Nuevo efecto hover */
+        background-color: var(--border-color); 
       }
       
-      /* */
       nav ul li a.active {
         color: var(--primary-color-static);
-        background-color: var(--border-color); /* ¡Igual que el hover! */
-        border-bottom-color: transparent; /* Ya no necesitamos el subrayado */
+        background-color: var(--border-color); 
+        border-bottom-color: transparent; 
       }
 
       .traduccion a {
@@ -346,15 +333,14 @@
         color: var(--bg-color);
       }
 
-      /* --- NUEVO: Botón de Hamburguesa --- */
       .menu-toggle {
-        display: none; /* Oculto en desktop */
+        display: none;
         background: none;
         border: none;
         cursor: pointer;
         font-size: 1.5rem;
         color: var(--text-dark);
-        z-index: 1002; /* Encima del menú */
+        z-index: 1002; 
         padding: 0.25rem;
         line-height: 1;
       }
@@ -362,15 +348,10 @@
         color: var(--text-dark);
       }
 
-      /* Lógica de iconos Menu/X */
       .menu-toggle .icon-close { display: none; }
       body.nav-open .menu-toggle .icon-close { display: inline-block; }
       body.nav-open .menu-toggle .icon-menu { display: none; }
 
-
-      /* ------------------------- */
-      /* --- SECCIÓN #HOME (INICIO) --- */
-      /* ------------------------- */
       #home {
         display: flex;
         flex-direction: column;
@@ -393,20 +374,18 @@
 
       #home h1 { margin-bottom: 0.5rem; }
       
-      /* */
       #home h2 {
         font-family: var(--font-body);
-        font-size: 1.1rem; /* Un poco más pequeño y sutil */
+        font-size: 1.1rem;
         font-weight: 700;
-        background-color: #f5f0ff; /* Un lila/púrpura muy pálido */
-        color: var(--primary-color-static); /* Texto morado */
+        background-color: #f5f0ff; 
+        color: var(--primary-color-static);
         padding: 0.4rem 1rem;
-        border-radius: 20px; /* Bordes redondeados */
+        border-radius: 20px; 
         display: inline-block;
         margin-bottom: 1.5rem;
-        border: 1px solid var(--border-color); /* Un borde sutil */
+        border: 1px solid var(--border-color); 
         
-        /* --- Estas líneas limpian el estilo de "h2" anterior --- */
         background: #f5f0ff;
         -webkit-text-fill-color: var(--primary-color-static);
       }
@@ -426,12 +405,11 @@
         transition: all var(--transition-speed);
       }
       
-      /* */
       .sociales a:hover {
         color: var(--primary-color-static);
         background-color: var(--border-color);
-        transform: translateY(-3px); /* <-- AÑADIDO */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* <-- AÑADIDO */
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
       }
       .sociales a [data-feather] {
         width: 1.5em;
@@ -440,17 +418,13 @@
         vertical-align: middle;
       }
 
-      /* ------------------------- */
-      /* --- SECCIÓN #PROYECTOS --- */
-      /* ------------------------- */
+  
       #proyectos {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
       }
       
-      /* ===== MEJORA: Título h2 de la sección (ya es h2) ===== */
-      /* #proyectos > h2 { grid-column: 1 / -1; } /* Asegura que el título ocupe todo el ancho */
 
       .proyecto {
         background-color: var(--card-bg);
@@ -462,11 +436,10 @@
       }
       .proyecto:hover {
         transform: translateY(-8px);
-        /* Sombra con NUEVA PALETA */
         box-shadow: 0 10px 20px -5px hsla(270, 70%, 60%, 0.2); 
       }
 
-      /* ===== MEJORA: Jerarquía de Títulos ===== */
+  
       .proyecto h3 {
         font-size: 1.6rem;
         color: var(--primary-color-static);
@@ -474,7 +447,7 @@
       
       .proyecto p {
         font-size: 1rem;
-        color: #555; /* Texto de descripción ligeramente más suave */
+        color: #555;
         margin-bottom: 1.5rem;
         line-height: 1.7;
       }
@@ -498,24 +471,22 @@
 
       /* */
       .proyecto ul li {
-        background-color: #f9f6ff; /* Fondo púrpura muy pálido */
-        border: 1px solid #dcd0f0; /* Borde púrpura sutil */
+        background-color: #f9f6ff; 
+        border: 1px solid #dcd0f0; 
         color: var(--primary-color-static);
         padding: 0.35rem 0.85rem;
         border-radius: 15px;
         font-size: 0.9rem;
         font-weight: 600;
-        transition: all 0.2s ease-in-out; /* Transición suave */
+        transition: all 0.2s ease-in-out; 
       }
       
-      /* Efecto hover para las píldoras */
       .proyecto ul li:hover {
         background-color: var(--primary-color-static);
-        color: #FFFFFF; /* Texto blanco al pasar el mouse */
-        transform: scale(1.03); /* Ligero zoom */
+        color: #FFFFFF;
+        transform: scale(1.03);
         border-color: var(--primary-color-static);
       }
-      /* */
 
 
       .cta-button, .proyecto a {
@@ -531,7 +502,6 @@
         font-weight: 600;
         text-decoration: none;
         transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-        /* Sombra con NUEVA PALETA */
         box-shadow: 0 4px 10px hsla(270, 70%, 60%, 0.2);
         border: none;
       }
@@ -551,24 +521,21 @@
         color: var(--bg-color);
       }
       
-      /* El H2 de proyectos debe ir antes de los artículos */
+     
       #proyectos h2 {
-        grid-column: 1 / -1; /* Ocupa todo el ancho */
+        grid-column: 1 / -1;
       }
 
 
-      /* ------------------------- */
-      /* --- SECCIÓN #HABILIDADES --- */
-      /* ------------------------- */
       #habilidades {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Reducido a 2 columnas para más espacio */
-        gap: 2rem; /* Más espacio entre categorías */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 2rem; 
       }
       
-      /* El H2 de habilidades debe ir antes de las categorías */
+      
       #habilidades h2 {
-        grid-column: 1 / -1; /* Ocupa todo el ancho */
+        grid-column: 1 / -1; 
       }
 
 
@@ -590,20 +557,19 @@
         -webkit-text-fill-color: unset;
         color: var(--primary-color-static);
       }
-      /* El <ul> y <li> originales fueron reemplazados por 
-        .habilidades-grid y .habilidad-item, 
-        cuyos estilos están más abajo.
-      */
-
-      /* ------------------------- */
-      /* --- SECCIÓN #SOBRE-MI --- */
-      /* ------------------------- */
+  
       
-      /* ===== MEJORA: Sección destacada ===== */
+    
       #sobre-mi {
-        background-color: #fcfaff; /* Un púrpura muy muy claro */
+        background-color: #fcfaff; 
         border-radius: 12px;
-        padding: 4rem; /* Padding interno propio */
+        padding: 4rem;
+      }
+      
+   
+      #sobre-mi h2 {
+        display: block;
+        text-align: center; 
       }
       
       #sobre-mi p {
@@ -612,34 +578,85 @@
         line-height: 1.7;
       }
       
-      /* ===== MEJORA: Jerarquía de Subtítulos ===== */
-      #sobre-mi h3 {
-        background: none;
-        -webkit-text-fill-color: unset;
-        color: var(--primary-color-static);
-        font-size: 1.5rem;
-        margin-top: 2.5rem;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 0.5rem;
-      }
-      #sobre-mi h3:first-of-type {
-        margin-top: 1rem;
+   
+      #sobre-mi .about-intro {
+          font-size: 1.15rem;
+          color: #444; 
+          max-width: 80ch;
+          margin-left: auto;
+          margin-right: auto;
+          text-align: center; 
+          margin-bottom: 3rem; 
+          line-height: 1.7;
       }
 
+      .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin-bottom: 3rem;
+      }
 
-      /* ------------------------- */
-      /* --- (SECCIONES ELIMINADAS) --- */
-      /* ------------------------- */
-      /* #certificaciones ul li, (se movió a la nueva sección) */
-      /* #idiomas ul li (se movió a la nueva sección) */
+      .about-card {
+          background-color: var(--bg-color); 
+          padding: 2rem;
+          border-radius: 12px;
+          border: 1px solid var(--border-color);
+          box-shadow: var(--shadow-elevation-medium);
+          height: 100%; 
+      }
+
+      .about-card h3 {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem; 
+          font-size: 1.5rem; 
+          color: var(--primary-color-static);
+          margin-bottom: 1rem;
+          
+          margin-top: 0; 
+          border-bottom: none;
+          padding-bottom: 0;
+          background: none;
+          -webkit-text-fill-color: unset;
+      }
+      
+      .about-card p {
+          font-size: 1rem; 
+          line-height: 1.7;
+          margin-bottom: 0; 
+      }
+
+   
+      .about-cv-container {
+          text-align: center;
+          margin-top: 1rem;
+      }
+      
+    
+      @media (max-width: 900px) {
+          .about-grid {
+              grid-template-columns: 1fr; 
+              gap: 1.5rem;
+          }
+          
+          #sobre-mi .about-intro {
+              font-size: 1.1rem; 
+              text-align: left; 
+          }
+
+          .about-card {
+              padding: 1.5rem;
+          }
+      }
 
 
-      /* --------------------------------- */
-      /* --- NUEVA SECCIÓN: FORMACIÓN ADICIONAL --- */
-      /* --------------------------------- */
+     
+
+
       #formacion-adicional .formacion-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr; /* Certificaciones (más) | Idiomas (menos) */
+        grid-template-columns: 2fr 1fr;
         gap: 2rem;
         margin-top: 2rem;
       }
@@ -670,7 +687,7 @@
       #formacion-adicional .formacion-card ul li {
         display: flex;
         align-items: center;
-        font-size: 1.05rem; /* Ligeramente más grande */
+        font-size: 1.05rem; 
         padding: 0.5rem 0;
       }
       
@@ -685,9 +702,7 @@
           color: var(--secondary-color);
       }
 
-      /* ------------------------- */
-      /* --- SECCIÓN #CONTACTO --- */
-      /* ------------------------- */
+ 
       #contacto {
         text-align: center;
       }
@@ -702,35 +717,72 @@
         padding: 0.8rem 2rem;
       }
 
-      /* ------------------------- */
-      /* --- FOOTER --- */
-      /* ------------------------- */
-      footer {
-        background-color: var(--card-bg);
-        color: var(--text-dark);
+
+      #main-footer {
+        background-color: var(--card-bg); 
+        color: var(--text-dark); 
+        padding: 4rem 1rem; 
+        margin-top: 5rem; 
+        border-top: 1px solid var(--border-color); 
         text-align: center;
-        padding: 3rem 1rem;
-        margin-top: 3rem;
-        border-top: 1px solid var(--border-color);
       }
 
-      footer p { margin-bottom: 1rem; }
+      .footer-content {
+        max-width: 1100px; 
+        margin: 0 auto;
+      }
+
+      .footer-copy, .footer-built-with {
+        font-size: 0.95rem;
+        color: #777; 
+        margin-bottom: 0.75rem; 
+      }
+      
+      .footer-copy {
+          margin-top: 0;
+      }
+
+      .footer-built-with i {
+          color: #e74c3c; 
+      }
+
       .sociales-footer {
         display: flex;
         justify-content: center;
-        gap: 1rem;
-      }
-      .sociales-footer a {
-        color: var(--text-dark);
-        text-decoration: underline;
-      }
-      .sociales-footer a:hover {
-        color: var(--primary-color-static);
+        gap: 1.5rem; 
+        margin-top: 1.5rem;
       }
 
-      /* ------------------------- */
-      /* --- BOTÓN SCROLL-TO-TOP --- */
-      /* ------------------------- */
+      .sociales-footer li {
+          margin: 0; 
+      }
+
+      .sociales-footer a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-dark);
+        text-decoration: none; 
+        font-weight: 600; 
+        padding: 0.5rem 0.75rem; 
+        border-radius: 6px;
+        transition: all var(--transition-speed);
+      }
+
+      .sociales-footer a:hover {
+        color: var(--primary-color-static);
+        background-color: var(--border-color); 
+        transform: translateY(-2px); 
+      }
+      
+      .sociales-footer a [data-feather] {
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: middle;
+        margin-right: 0; 
+      }
+
+
       .scroll-to-top {
         position: fixed;
         bottom: 20px;
@@ -761,9 +813,7 @@
         transform: translateY(0);
       }
 
-      /* ------------------------- */
-      /* --- ANIMACIONES DE SCROLL --- */
-      /* ------------------------- */
+ 
       .reveal {
         opacity: 0;
         transform: translateY(20px) scale(0.98);
@@ -779,70 +829,59 @@
       #proyectos .reveal:nth-child(2) { transition-delay: 0.1s; }
 
 
-      /* ------------------------- */
-      /* --- RESPONSIVE DESIGN --- */
-      /* ------------------------- */
 
-      /* Tablets (y móviles anchos) */
+
       @media (max-width: 900px) {
         
-        /* #habilidades (ya es 2-col, pero la regla original era 4-col, así que la ajustamos) */
-        /* La regla de 2 columnas ahora es la base, en móvil será 1 */
 
-        /* Responsive para la nueva sección */
         #formacion-adicional .formacion-grid {
           grid-template-columns: 1fr;
         }
       }
 
-      /* Móviles */
+  
       @media (max-width: 700px) {
 
-        /* --- NUEVA NAVEGACIÓN MÓVIL --- */
         
         header nav {
-          /* Mueve los botones a la derecha */
           justify-content: flex-end; 
           padding: 0 1rem;
-          gap: 0.5rem; /* Espacio entre theme-toggle y menu-toggle */
+          gap: 0.5rem;
         }
         
         .menu-toggle {
-          display: block; /* Muestra el botón de hamburguesa */
+          display: block;
         }
         
         nav ul {
-          position: fixed; /* Menú deslizante */
+          position: fixed; 
           top: 0;
           right: 0;
-          width: 80%; /* Ocupa el 80% del ancho */
+          width: 80%; 
           height: 100vh;
           
-          /* Estilos del panel */
+         
           background-color: var(--card-bg);
-          flex-direction: column; /* Apila los enlaces */
+          flex-direction: column; 
           align-items: center;
           justify-content: center;
-          gap: 0; /* -- MODIFICADO: Renglones controlan su espacio -- */
+          gap: 0; 
           
-          /* Oculto por defecto */
           transform: translateX(100%);
           opacity: 0;
           visibility: hidden;
           
           transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
           box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-          z-index: 1001; /* Detrás del botón de hamburguesa */
+          z-index: 1001; 
         }
         
-        /* Estado Abierto */
         body.nav-open nav ul {
           transform: translateX(0);
           opacity: 1;
           visibility: visible;
         }
 
-        /* Overlay para oscurecer el fondo */
         body.nav-open::after {
             content: '';
             position: fixed;
@@ -851,24 +890,22 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4);
-            z-index: 998; /* Detrás del menú, delante del contenido */
+            z-index: 998; 
         }
 
-        /* --- MODIFICADO: Renglón completo clicable y con hover --- */
         nav ul li {
-          width: 100%; /* El <li> ocupa todo el ancho del menú */
+          width: 100%; 
         }
         
         nav ul li a {
-          font-size: 1.25rem; /* Letra más grande en el menú */
-          display: block; /* Hace que el enlace ocupe todo el <li> */
+          font-size: 1.25rem;
+          display: block;
           width: 100%;
-          padding: 1rem 0; /* Padding vertical para hacerlo un "botón" grande */
-          text-align: center; /* Centra el texto */
-          border-bottom: none; /* Quita borde de desktop */
+          padding: 1rem 0; 
+          text-align: center; 
+          border-bottom: none; 
         }
         
-        /* Efecto hover para el renglón completo */
         nav ul li a:hover {
             background-color: var(--border-color);
             color: var(--primary-color-static);
@@ -876,13 +913,13 @@
         }
         
         .traduccion {
-            width: 100%; /* También ocupa todo el ancho */
+            width: 100%; 
         }
         
         .traduccion a {
           font-size: 1rem;
-          padding: 0.75rem 0; /* Padding similar */
-          border: none; /* Quita el borde en móvil */
+          padding: 0.75rem 0; 
+          border: none; 
           display: block;
           width: 100%;
           text-align: center;
@@ -892,7 +929,6 @@
             color: var(--primary-color-static);
         }
         
-        /* --- FIN DE NAVEGACIÓN MÓVIL --- */
 
 
         section, #home {
@@ -900,7 +936,7 @@
         }
         
         #sobre-mi {
-          padding: 2.5rem 1.5rem; /* Ajuste para móvil */
+          padding: 2.5rem 1.5rem; 
         }
 
         h1 { font-size: 2rem; }
@@ -929,17 +965,12 @@
         }
       }
 
-      /* =====================================================
-      ### INICIO DEL CÓDIGO CSS AÑADIDO (HABILIDADES) ###
-      =====================================================
-      */
+
       .habilidades-grid {
         display: grid;
-        /* Crea columnas automáticas de 100px */
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 1rem;
         margin-top: 1.5rem;
-        /* Quitamos el <ul> anterior, así que eliminamos su padding por defecto */
         padding-left: 0; 
       }
 
@@ -954,7 +985,6 @@
         justify-content: center;
         text-align: center;
         transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-        /* Aseguramos que tenga una altura mínima por si el texto es muy largo */
         min-height: 120px; 
       }
 
@@ -963,52 +993,45 @@
         box-shadow: var(--shadow-elevation-medium);
       }
 
-      /* Estilo para los iconos de Devicon */
+     
       .habilidad-item i {
-        font-size: 3rem; /* Tamaño del logo */
+        font-size: 3rem;
         margin-bottom: 0.5rem;
-        /* */
-        /* color: var(--primary-color-static); <-- Esta línea fue eliminada */
       }
 
       .habilidad-item span {
         font-size: 0.9rem;
         font-weight: 600;
         font-family: var(--font-body);
-        color: var(--text-dark); /* Asegura que el texto sea legible */
-        line-height: 1.3; /* Mejora la legibilidad si el texto ocupa 2 líneas */
+        color: var(--text-dark); 
+        line-height: 1.3; 
       }
 
-      /* --- Ajuste para pantallas móviles --- */
       @media (max-width: 700px) {
         .habilidades-grid {
-          /* En móvil, ajusta a un tamaño mínimo más pequeño */
           grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
           gap: 0.5rem;
         }
 
         .habilidad-item {
           padding: 0.75rem;
-          min-height: 100px; /* Altura mínima más pequeña */
+          min-height: 100px; 
         }
 
         .habilidad-item i {
-          font-size: 2.5rem; /* Iconos más pequeños en móvil */
+          font-size: 2.5rem; 
         }
 
         .habilidad-item span {
-          font-size: 0.8rem; /* Texto más pequeño */
+          font-size: 0.8rem; 
         }
       }
-      /* =====================================================
-      ### FIN DEL CÓDIGO CSS ###
-      =====================================================
-      */
+
     </style>
 
 </head>
 <body data-lang="es">
-  
+ 
   <div class="area-animada">
         <ul class="circulos">
             <li></li>
@@ -1036,7 +1059,7 @@
                 <li class="traduccion"><a href="#en" data-lang="en">EN</a></li>
                 <li class="traduccion"><a href="#fr" data-lang="fr">FR</a></li>
                 
-                </ul>
+            </ul>
             
             <button class="menu-toggle" aria-label="Abrir menú" data-key="menu_toggle_aria">
                 <i data-feather="menu" class="icon-menu"></i>
@@ -1224,22 +1247,38 @@
         <section id="sobre-mi" class="reveal">
             
             <h2 data-key="about_title">Sobre Mí</h2>
-            <p data-key="about_desc">
+            
+            <p class="about-intro" data-key="about_desc">
                 Soy un estudiante apasionado de Ingeniería en Tecnologías de la Información, con un fuerte enfoque y vocación hacia la administración de redes y la ciberseguridad. Cuento con certificaciones como el CCNA de Cisco y Administrador de Servidores, y busco aplicar mis conocimientos para diseñar, implementar y proteger infraestructuras tecnológicas robustas.
             </p>
-            <h3 data-key="about_edu_title">Formación</h3>
-            <p data-key="about_edu_desc">
-                Actualmente cursando el 4to cuatrimestre de la carrera de Ingeniería en Tecnologías de la Información e Innovación Digital en la Universidad Politecnica de Sinaloa . Durante mi carrera, he orientado mis proyectos y estudios de especialización hacia las áreas de Redes, Sistemas Operativos y Desarrollo Web.
-            </p>
 
-            <h3 data-key="about_exp_title">Experiencia y Prácticas</h3>
-            <p data-key="about_exp_desc">
-                Mi experiencia combina la teoría con la práctica. Cuento con las certificaciones CCNA (SRWE) y Administrador de Servidores, y he aplicado directamente estas habilidades en entornos reales. Como responsable de soporte en el CETis No. 127 (durante prácticas y servicio social), lideré proyectos clave como la renovación de la infraestructura de red de la escuela y la implementación de un sistema de videovigilancia. Paralelamente, he brindado servicios de consultoría e instalación de redes para pequeños comercios.
-            </p>
-            <a href="CV.pdf" download class="cta-button" data-key="btn_cv"><i data-feather="download"></i> Descargar mi CV (PDF)</a>
+            <div class="about-grid">
+                
+                <div class="about-card">
+                    <h3 data-key="about_edu_title">
+                        <i data-feather="book-open"></i> Formación
+                    </h3>
+                    <p data-key="about_edu_desc">
+                        Actualmente cursando el 4to cuatrimestre de la carrera de Ingeniería en Tecnologías de la Información e Innovación Digital en la Universidad Politecnica de Sinaloa . Durante mi carrera, he orientado mis proyectos y estudios de especialización hacia las áreas de Redes, Sistemas Operativos y Desarrollo Web.
+                    </p>
+                </div>
+                
+                <div class="about-card">
+                    <h3 data-key="about_exp_title">
+                        <i data-feather="briefcase"></i> Experiencia y Prácticas
+                    </h3>
+                    <p data-key="about_exp_desc">
+                        Mi experiencia combina la teoría con la práctica. Cuento con las certificaciones CCNA (SRWE) y Administrador de Servidores, y he aplicado directamente estas habilidades en entornos reales. Como responsable de soporte en el CETis No. 127 (durante prácticas y servicio social), lideré proyectos clave como la renovación de la infraestructura de red de la escuela y la implementación de un sistema de videovigilancia. Paralelamente, he brindado servicios de consultoría e instalación de redes para pequeños comercios.
+                    </p>
+                </div>
+
+            </div> <div class="about-cv-container">
+                <a href="CV.pdf" download class="cta-button" data-key="btn_cv">
+                    <i data-feather="download"></i> Descargar mi CV (PDF)
+                </a>
+            </div>
 
         </section>
-        
         <section id="formacion-adicional" class="reveal">
             
             <h2 data-key="addl_training_title">Formación Adicional</h2>
@@ -1305,15 +1344,18 @@
 
     </main>
 
-    <footer>
-        <p data-key="footer_copy">&copy; 2025 Luis Eduardo Barrón Alvarez. Portafolio creado con HTML5.</p>
-        <ul class="sociales-footer">
-            <li><a href="https://github.com/eduardo-ba" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/luis-eduardo-barron-alvarez-60082b387/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        </ul>
+    <footer id="main-footer">
+        <div class="footer-content">
+            <p class="footer-copy" data-key="footer_copy">
+                 </span> Luis Eduardo Barrón Alvarez.</p>
+            <ul class="sociales-footer">
+                <li><a href="https://github.com/eduardo-ba" target="_blank" rel="noopener noreferrer" aria-label="Mi perfil de GitHub" data-key="footer_github_aria"><i data-feather="github"></i> GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/luis-eduardo-barron-alvarez-60082b387/" target="_blank" rel="noopener noreferrer" aria-label="Mi perfil de LinkedIn" data-key="footer_linkedin_aria"><i data-feather="linkedin"></i> LinkedIn</a></li>
+            </ul>
+        </div>
     </footer>
 
-    <a href="#home" class="scroll-to-top" title="Volver arriba">
+    <a href="#home" class="scroll-to-top" title="Volver arriba" data-key="scroll_top_aria">
         <span>&uarr;</span>
     </a>
 
@@ -1329,12 +1371,16 @@
       const htmlElement = document.documentElement;
       const body = document.body;
       
-      // Selectores para Menú (Selector de Tema ELIMINADO)
+     
       const menuToggle = document.querySelector('.menu-toggle');
       const navUl = document.querySelector('nav ul');
 
-
-      // ¡Activa los iconos Feather!
+   
+      const currentYearSpan = document.getElementById('current-year');
+      if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+      }
+   
       try {
         feather.replace();
       } catch (error) {
@@ -1342,16 +1388,12 @@
       }
 
 
-      /**
-       * ========================================
-       * FUNCIONALIDAD DE TRADUCCIÓN
-       * ========================================
-       */
+ 
+ 
 
       const translatePage = async (lang) => {
         try {
-          // NOTA: Esto asume que tienes una carpeta "languages"
-          // junto a tu "index.html"
+      
           const response = await fetch(`languages/${lang}.json`); 
           if (!response.ok) {
             throw new Error(`No se pudo cargar ${lang}.json. Estado: ${response.status}`);
@@ -1374,16 +1416,15 @@
           document.title = translations.page_title;
           htmlElement.setAttribute('lang', lang);
           htmlElement.setAttribute('data-lang', lang);
+          
+
+          feather.replace();
 
         } catch (error) {
           console.error('Error en la traducción:', error);
           if (lang !== 'es') {
             console.warn(`No se encontraron traducciones para "${lang}". Volviendo a Español.`);
-            // alert(`No se encontraron traducciones para "${lang}". Volviendo a Español.`);
             if (htmlElement.getAttribute('data-lang') !== 'es') {
-              // Intenta cargar español solo si falla otro idioma
-              // await translatePage('es'); 
-              // localStorage.setItem('language', 'es');
             }
           } else {
             console.error("No se pudo cargar el archivo base 'es.json'. La traducción no funcionará.");
@@ -1400,43 +1441,33 @@
         });
       });
 
-      // Carga el idioma guardado o 'es' por defecto
+      //cargar idioma guardado
       const savedLang = localStorage.getItem('language') || 'es';
       if (savedLang !== 'es') {
-          translatePage(savedLang); // Intenta cargar el idioma guardado
+          translatePage(savedLang);
       } else {
-          // No es necesario llamar a translatePage('es') si 'es' es el idioma
-          // por defecto y ya está escrito en el HTML.
-          // Solo lo llamamos si queremos cargar dinámicamente 'es.json'
-          // translatePage('es'); 
+     
       }
 
 
-      /**
-       * ========================================
-       * FUNCIONALIDAD DE MENÚ HAMBURGUESA
-       * ========================================
-       */
+      // menu de hamburguesa
 
       if (menuToggle && navUl) {
         menuToggle.addEventListener('click', () => {
             body.classList.toggle('nav-open');
-            // Actualiza ARIA label para accesibilidad
+            
             const isOpen = body.classList.contains('nav-open');
             const newLabel = isOpen ? 'Cerrar menú' : 'Abrir menú';
             menuToggle.setAttribute('aria-label', newLabel);
             
-            // Intenta actualizar la data-key si existe
             const dataKey = menuToggle.getAttribute('data-key');
             if (dataKey) {
-                // Esto es un truco para que la función de traducción
-                // lo actualice la próxima vez que se ejecute
-                // (aunque no es perfecto, lo mejor es setear el texto)
+
             }
 
         });
 
-        // Cerrar el menú si se hace clic en un enlace de navegación
+      
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (body.classList.contains('nav-open')) {
@@ -1446,11 +1477,11 @@
             });
         });
         
-        // Cerrar el menú si se hace clic FUERA de él (en el overlay)
+  
         document.addEventListener('click', function(event) {
             if (body.classList.contains('nav-open') &&
-                !navUl.contains(event.target) &&  // Si el clic NO fue en el nav
-                !menuToggle.contains(event.target) // Si el clic NO fue en el botón
+                !navUl.contains(event.target) && 
+                !menuToggle.contains(event.target)
             ) {
                 body.classList.remove('nav-open');
                 menuToggle.setAttribute('aria-label', 'Abrir menú');
@@ -1460,14 +1491,7 @@
 
 
       /**
-       * ========================================
-       * FUNCIONALIDADES EXISTENTES
-       * ========================================
-       */
-
-
-      /**
-       * FUNCIONALIDAD 1: HEADER DINÁMICO Y BOTÓN "VOLVER ARRIBA"
+       * header y boton 
        */
       window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -1485,13 +1509,12 @@
 
 
       /**
-       * FUNCIONALIDAD 2: DESPLAZAMIENTO SUAVE (SMOOTH SCROLL)
+       * desplazamiento suave para anclas
        */
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           
           if (this.parentElement.classList.contains('traduccion')) {
-            // Ya lo maneja el listener de traducción, no hacer nada
             return;
           }
 
@@ -1514,7 +1537,7 @@
       });
 
       /**
-       * FUNCIONALIDAD 3: NAVEGACIÓN ACTIVA AL DESPLAZAR (ACTIVE NAV ON SCROLL)
+       * navegación activa al desplazarse
        */
       const navObserverOptions = {
         root: null,
@@ -1539,7 +1562,7 @@
       });
 
       /**
-       * FUNCIONALIDAD 4: ANIMACIÓN AL DESPLAZAR (REVEAL ON SCROLL)
+       * cargar al deslizar
        */
       const revealObserverOptions = {
         root: null,

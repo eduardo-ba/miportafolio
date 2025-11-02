@@ -49,7 +49,7 @@
     "contact_title": "Hablemos",
     "contact_desc": "Estoy buscando activamente oportunidades y siempre estoy abierto a conectar. ¡Envíame un correo!",
     "btn_contact": "Contactar",
-    "footer_copy": "&copy; 2025 Luis Eduardo Barrón Alvarez. Portafolio creado con HTML5.",
+    "footer_copy": "Luis Eduardo Barrón Alvarez.",
 
     "p1_tech_list": "<li>Cableado estructurado (UTP Cat6)</li><li>Switches administrables</li><li>Ruteadores</li><li>Cámaras IP</li><li>NVR</li><li>topología de red LAN</li><li>PoE</li><li>configuración IP estática</li>",
     "p2_tech_list": "<li>Cisco Packet Tracer</li><li>LAN</li><li>VLAN</li><li>Routers</li><li>Switches</li><li>Configuración IP</li><li>DHCP</li><li>Seguridad básica</li><li>Simulación de tráfico</li>"

@@ -49,7 +49,7 @@
     "contact_title": "Let's Talk",
     "contact_desc": "I am actively looking for opportunities and am always open to connecting. Send me an email!",
     "btn_contact": "Contact Me",
-    "footer_copy": "&copy; 2025 Luis Eduardo Barrón Alvarez. Portfolio created with HTML5.",
+    "footer_copy": "Luis Eduardo Barrón Alvarez.",
     
     "p1_tech_list": "<li>Structured Cabling (UTP Cat6)</li><li>Manageable Switches</li><li>Routers</li><li>IP Cameras</li><li>NVR</li><li>LAN network topology</li><li>PoE</li><li>Static IP configuration</li>",
     "p2_tech_list": "<li>Cisco Packet Tracer</li><li>LAN</li><li>VLAN</li><li>Routers</li><li>Switches</li><li>IP Configuration</li><li>DHCP</li><li>Basic Security</li><li>Traffic Simulation</li>"
