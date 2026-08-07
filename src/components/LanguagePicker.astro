@@ -1,0 +1,70 @@
+---
+import {
+	getLangFromUrl,
+	useTranslations,
+	localizePath,
+	localeTags,
+	languages,
+	dictionaries,
+} from "../i18n";
+
+const current = getLangFromUrl(Astro.url);
+const t = useTranslations(current);
+
+// Ruta actual sin prefijo de idioma: cambiar de idioma conserva la página.
+const basePath = Astro.url.pathname.replace(/^\/(en|fr)(?=\/|$)/, "") || "/";
+---
+
+<nav class="lang-picker u-meta" aria-label={t("nav_language")}>
+	<ul>
+		{
+			languages.map((lang) => {
+				const isCurrent = lang === current;
+				return (
+					<li>
+						<a
+							href={localizePath(basePath, lang)}
+							lang={localeTags[lang]}
+							hreflang={localeTags[lang]}
+							aria-current={isCurrent ? "true" : undefined}
+						>
+							{dictionaries[lang].lang_name}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>
+
+<style>
+	/* Metadata: mono, compacto, sin chrome (§7, §12, §24). */
+	.lang-picker ul {
+		display: flex;
+		column-gap: 1.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.lang-picker a {
+		display: inline-flex;
+		align-items: center;
+		/* §27/§28: área táctil mínima sin inflar el diseño. */
+		min-height: 44px;
+		color: var(--color-muted);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		transition: color var(--dur-micro) var(--ease-editorial);
+	}
+
+	.lang-picker a:hover {
+		color: var(--color-ink);
+	}
+
+	/* El idioma activo no depende solo del color (§28): también lleva regla. */
+	.lang-picker a[aria-current="true"] {
+		color: var(--color-ink);
+		border-bottom-color: var(--color-ink);
+	}
+</style>

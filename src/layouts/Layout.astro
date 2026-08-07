@@ -1,0 +1,95 @@
+---
+import "../styles/global.css";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import {
+	getLangFromUrl,
+	useTranslations,
+	localizePath,
+	localeTags,
+	languages,
+} from "../i18n";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { title = t("page_title"), description = t("about_desc") } = Astro.props;
+
+// Astro.site puede ser undefined si no se configuró `site` en astro.config.mjs.
+const canonical = Astro.site
+	? new URL(Astro.url.pathname, Astro.site).href
+	: undefined;
+
+// Ruta actual sin el prefijo de idioma, para construir las alternativas.
+const basePath = Astro.url.pathname.replace(/^\/(en|fr)(?=\/|$)/, "") || "/";
+const alternates = Astro.site
+	? languages.map((l) => ({
+			lang: l,
+			tag: localeTags[l],
+			href: new URL(localizePath(basePath, l), Astro.site).href,
+		}))
+	: [];
+---
+
+<!doctype html>
+<html lang={localeTags[lang]}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		{canonical && <link rel="canonical" href={canonical} />}
+
+		{
+			alternates.map((a) => (
+				<link rel="alternate" hreflang={a.tag} href={a.href} />
+			))
+		}
+		{
+			alternates.length > 0 && (
+				<link rel="alternate" hreflang="x-default" href={alternates[0]!.href} />
+			)
+		}
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		{/* §29: el nombre a tamaño display es lo primero que se ve; sin preload
+		    el navegador descubre la fuente hasta parsear el CSS. */}
+		<link
+			rel="preload"
+			href="/fonts/archivo-latin-variable.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content={localeTags[lang].replace("-", "_")} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		{canonical && <meta property="og:url" content={canonical} />}
+		<meta name="twitter:card" content="summary_large_image" />
+	</head>
+	<body>
+		<header class="site-head u-shell">
+			<LanguagePicker />
+		</header>
+		<slot />
+	</body>
+
+	<style>
+		/* §12: navegación ligera, sin chrome de dashboard. */
+		.site-head {
+			display: flex;
+			justify-content: flex-end;
+			padding-block: 1.25rem;
+			border-bottom: 1px solid var(--color-line);
+		}
+	</style>
+</html>

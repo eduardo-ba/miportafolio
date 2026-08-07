@@ -1,0 +1,99 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n";
+import { email, social } from "../data/site";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+---
+
+{/* §19: cierre de publicación. Sin formulario gigante. */}
+<footer class="contact" data-mood="orange" aria-labelledby="contact-title">
+	<div class="u-shell">
+		<p class="contact__end u-meta">End of Issue 001</p>
+
+		<h2 class="contact__title" id="contact-title">{t("contact_title")}</h2>
+		<p class="contact__desc u-measure">{t("contact_desc")}</p>
+
+		<a class="contact__mail" href={`mailto:${email}`}>{email}</a>
+
+		<ul class="contact__links u-meta">
+			<li><a href={social.github}>GitHub</a></li>
+			<li><a href={social.linkedin}>LinkedIn</a></li>
+		</ul>
+
+		<p class="contact__copy u-meta">© {year} {t("footer_copy")}</p>
+	</div>
+</footer>
+
+<style>
+	/* Única sección a sangre: el color emocional domina y luego el sitio termina. */
+	.contact {
+		background: var(--accent-surface);
+		color: var(--accent-on-surface);
+		padding-block: var(--space-section);
+		margin-top: var(--space-section);
+	}
+
+	.contact__end {
+		color: var(--accent-on-surface);
+		opacity: 0.7;
+		margin: 0 0 2rem;
+	}
+
+	.contact__title {
+		font-size: var(--text-xl);
+		font-variation-settings: "wdth" 110;
+		margin: 0 0 1rem;
+	}
+
+	.contact__desc {
+		margin: 0 0 2.5rem;
+		opacity: 0.85;
+	}
+
+	.contact__mail {
+		display: inline-block;
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-weight: 700;
+		font-variation-settings: "wdth" 104;
+		text-decoration: none;
+		border-bottom: 2px solid currentColor;
+		padding-bottom: 0.15em;
+		min-height: 44px;
+	}
+
+	.contact__links {
+		display: flex;
+		gap: 1.5rem;
+		list-style: none;
+		margin: 3rem 0 0;
+		padding: 0;
+		color: var(--accent-on-surface);
+	}
+
+	.contact__links a {
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+	}
+
+	.contact__links a:hover {
+		border-bottom-color: currentColor;
+	}
+
+	.contact__copy {
+		color: var(--accent-on-surface);
+		opacity: 0.6;
+		margin: 4rem 0 0;
+	}
+
+	/* El foco debe verse también sobre la superficie oscura (§28). */
+	.contact :focus-visible {
+		outline-color: var(--accent-on-surface);
+	}
+</style>

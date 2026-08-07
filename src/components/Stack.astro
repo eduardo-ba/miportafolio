@@ -1,0 +1,70 @@
+---
+import SectionHead from "./SectionHead.astro";
+import { getLangFromUrl, useTranslations } from "../i18n";
+import { skills } from "../data/site";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="stack u-shell" aria-labelledby="stack-title">
+	<SectionHead index="02" id="stack-title" title={t("skills_title")} />
+
+	<div class="stack__grid">
+		{
+			skills.map((group, i) => (
+				<div class="group">
+					<h3 class="group__title u-meta">
+						<span class="group__idx" aria-hidden="true">
+							{String(i + 1).padStart(2, "0")}
+						</span>
+						{t(group.titleKey)}
+					</h3>
+					<ul class="group__items">
+						{group.items.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.stack {
+		padding-block: var(--space-section);
+	}
+
+	/* §15: catálogo editorial. Sin píldoras, sin iconos, sin colores por logo. */
+	.stack__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+		gap: clamp(2rem, 4vw, 3.5rem);
+	}
+
+	.group__title {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		color: var(--color-ink);
+		margin: 0 0 1rem;
+		border-bottom: 1px solid var(--color-line);
+		padding-bottom: 0.65rem;
+	}
+
+	.group__idx {
+		color: var(--color-muted);
+	}
+
+	.group__items {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.4rem;
+		font-family: var(--font-display);
+		font-size: var(--text-md);
+		font-variation-settings: "wdth" 100;
+	}
+</style>

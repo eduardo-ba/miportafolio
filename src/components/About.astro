@@ -1,0 +1,142 @@
+---
+import SectionHead from "./SectionHead.astro";
+import { getLangFromUrl, useTranslations } from "../i18n";
+import { cvPath, location } from "../data/site";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="about u-shell" aria-labelledby="about-title">
+	<SectionHead index="03" id="about-title" title={t("about_title")} />
+
+	<div class="about__grid">
+		<div class="about__prose">
+			<p class="about__lead u-measure">{t("about_desc")}</p>
+
+			<div class="about__block u-measure">
+				<h3 class="u-meta">{t("about_edu_title")}</h3>
+				<p>{t("about_edu_desc")}</p>
+			</div>
+
+			<div class="about__block u-measure">
+				<h3 class="u-meta">{t("about_exp_title")}</h3>
+				<p>{t("about_exp_desc")}</p>
+			</div>
+
+			<a class="about__cv" href={cvPath} download>
+				{t("btn_cv")}
+				<span aria-hidden="true">↓</span>
+			</a>
+		</div>
+
+		{/* §16: registro de archivo original, no una réplica de documento ajeno. */}
+		<aside class="record" aria-label={t("about_title")}>
+			<p class="record__head u-meta">Personal Archive Record</p>
+			<dl class="record__list u-meta">
+				<div><dt>Name</dt><dd>{t("home_name")}</dd></div>
+				<div><dt>Field</dt><dd>{t("home_subtitle")}</dd></div>
+				<div><dt>Base</dt><dd>{location}</dd></div>
+				<div><dt>{t("lang_title")}</dt><dd>{t("lang_es")}<br />{t("lang_en")}</dd></div>
+				<div><dt>Archive ID</dt><dd>LEB-001</dd></div>
+			</dl>
+		</aside>
+	</div>
+</section>
+
+<style>
+	.about {
+		padding-block: var(--space-section);
+	}
+
+	.about__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+		gap: clamp(2rem, 5vw, 4.5rem);
+		align-items: start;
+	}
+
+	.about__lead {
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-variation-settings: "wdth" 102;
+		font-weight: 500;
+		line-height: 1.25;
+		margin: 0 0 2.5rem;
+	}
+
+	.about__block {
+		margin-bottom: 2rem;
+	}
+
+	.about__block h3 {
+		margin: 0 0 0.5rem;
+		color: var(--color-ink);
+	}
+
+	.about__block p {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+
+	.about__cv {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: 44px;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		border: 1px solid var(--color-ink);
+		padding: 0.75rem 1.25rem;
+		transition:
+			background-color var(--dur-micro) var(--ease-editorial),
+			color var(--dur-micro) var(--ease-editorial);
+	}
+
+	/* §24: el texto se invierte, no hay degradado ni sombra. */
+	.about__cv:hover {
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+
+	.record {
+		border: 1px solid var(--color-ink);
+		padding: 1.25rem;
+		background: var(--color-paper-clean);
+	}
+
+	.record__head {
+		margin: 0 0 1rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--color-ink);
+		color: var(--color-ink);
+	}
+
+	.record__list {
+		display: grid;
+		gap: 0.85rem;
+		margin: 0;
+	}
+
+	.record__list dt {
+		color: var(--color-muted);
+		margin-bottom: 0.2rem;
+	}
+
+	.record__list dd {
+		margin: 0;
+		color: var(--color-ink);
+		text-transform: none;
+		letter-spacing: 0.02em;
+		line-height: 1.5;
+	}
+
+	@media (width < 56rem) {
+		.about__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,0 +1,149 @@
+---
+import SectionHead from "./SectionHead.astro";
+import { getLangFromUrl, useTranslations } from "../i18n";
+import { projects } from "../data/site";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+/*
+  §6: el color sale de la personalidad del proyecto, no de una paleta.
+  01 es infraestructura física que crece en una escuela → verde (sistemas).
+  02 es simulación de red, todo en pantalla → azul (digital, distancia).
+*/
+const moods = ["green", "blue"] as const;
+---
+
+<section class="work u-shell" aria-labelledby="work-title">
+	<SectionHead index="01" id="work-title" title={t("projects_title")} />
+
+	<ol class="work__list">
+		{
+			projects.map((project, i) => (
+				<li class="project" data-mood={moods[i] ?? "blue"}>
+					<span class="project__num" aria-hidden="true">
+						{String(i + 1).padStart(2, "0")}
+					</span>
+
+					<div class="project__main">
+						<h3 class="project__title">{t(project.titleKey)}</h3>
+						<p class="project__desc u-measure">{t(project.descKey)}</p>
+
+						<a class="project__link" href={project.repo}>
+							{t("btn_code")}
+							<span aria-hidden="true">→</span>
+						</a>
+					</div>
+
+					<div class="project__meta">
+						<h4 class="u-meta project__tech-title">{t("tech_used_title")}</h4>
+						<ul class="project__tech u-meta">
+							{(t(project.techKey) as unknown as string[]).map((tech) => (
+								<li>{tech}</li>
+							))}
+						</ul>
+					</div>
+				</li>
+			))
+		}
+	</ol>
+</section>
+
+<style>
+	.work {
+		padding-block: var(--space-section);
+	}
+
+	.work__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: clamp(3rem, 7vw, 6rem);
+	}
+
+	.project {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) minmax(0, 16rem);
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
+		border-top: 1px solid var(--color-line);
+		padding-top: 1.5rem;
+	}
+
+	/* El número es el ancla editorial de cada entrada (§13). */
+	.project__num {
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-weight: 800;
+		font-variation-settings: "wdth" 78;
+		line-height: 1;
+		color: var(--accent);
+	}
+
+	.project__title {
+		font-size: var(--text-lg);
+		font-variation-settings: "wdth" 104;
+		margin: 0 0 1rem;
+	}
+
+	.project__desc {
+		margin: 0 0 1.5rem;
+		color: var(--color-ink-soft);
+	}
+
+	/* §24: enlace de texto con flecha, no botón de startup. */
+	.project__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--accent);
+		border-bottom: 1px solid currentColor;
+		padding-bottom: 3px;
+		min-height: 44px;
+	}
+
+	.project__link span {
+		transition: transform var(--dur-micro) var(--ease-editorial);
+	}
+
+	.project__link:hover span {
+		transform: translateX(4px);
+	}
+
+	.project__tech-title {
+		margin: 0 0 0.75rem;
+		color: var(--color-ink);
+	}
+
+	.project__tech {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.3rem;
+	}
+
+	@media (width < 60rem) {
+		.project {
+			grid-template-columns: auto minmax(0, 1fr);
+		}
+		.project__meta {
+			grid-column: 2;
+		}
+	}
+
+	@media (width < 40rem) {
+		.project {
+			grid-template-columns: 1fr;
+		}
+		.project__meta {
+			grid-column: 1;
+		}
+	}
+</style>

@@ -1,0 +1,36 @@
+---
+interface Props {
+	index: string;
+	title: string;
+	id: string;
+}
+
+const { index, title, id } = Astro.props;
+---
+
+<header class="sec-head">
+	<span class="sec-head__index u-meta" aria-hidden="true">{index}</span>
+	<h2 class="sec-head__title" id={id}>{title}</h2>
+</header>
+
+<style>
+	/* Índice diminuto contra título grande: el contraste de escala de la §8. */
+	.sec-head {
+		display: flex;
+		align-items: baseline;
+		gap: 1.25rem;
+		border-top: 1px solid var(--color-ink);
+		padding-top: 1rem;
+		margin-bottom: clamp(2rem, 5vw, 3.5rem);
+	}
+
+	.sec-head__index {
+		color: var(--accent);
+	}
+
+	.sec-head__title {
+		font-size: var(--text-xl);
+		font-variation-settings: "wdth" 108;
+		margin: 0;
+	}
+</style>
