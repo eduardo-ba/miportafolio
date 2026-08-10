@@ -10,38 +10,32 @@ import {
 
 const current = getLangFromUrl(Astro.url);
 const t = useTranslations(current);
-
-// Ruta actual sin prefijo de idioma: cambiar de idioma conserva la página.
 const basePath = Astro.url.pathname.replace(/^\/(en|fr)(?=\/|$)/, "") || "/";
 ---
 
-<nav class="lang-picker u-meta" aria-label={t("nav_language")}>
+<nav class="lang-picker" aria-label={t("nav_language")}>
 	<ul>
-		{
-			languages.map((lang) => {
-				const isCurrent = lang === current;
-				return (
-					<li>
-						<a
-							href={localizePath(basePath, lang)}
-							lang={localeTags[lang]}
-							hreflang={localeTags[lang]}
-							aria-current={isCurrent ? "true" : undefined}
-						>
-							{dictionaries[lang].lang_name}
-						</a>
-					</li>
-				);
-			})
-		}
+		{languages.map((lang) => {
+			const isCurrent = lang === current;
+			return (
+				<li>
+					<a
+						href={localizePath(basePath, lang)}
+						lang={localeTags[lang]}
+						hreflang={localeTags[lang]}
+						aria-current={isCurrent ? "page" : undefined}
+					>
+						{dictionaries[lang].lang_name}
+					</a>
+				</li>
+			);
+		})}
 	</ul>
 </nav>
 
 <style>
-	/* Metadata: mono, compacto, sin chrome (§7, §12, §24). */
 	.lang-picker ul {
 		display: flex;
-		column-gap: 1.5rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -49,22 +43,25 @@ const basePath = Astro.url.pathname.replace(/^\/(en|fr)(?=\/|$)/, "") || "/";
 
 	.lang-picker a {
 		display: inline-flex;
+		min-width: 2rem;
+		min-height: 2.4rem;
 		align-items: center;
-		/* §27/§28: área táctil mínima sin inflar el diseño. */
-		min-height: 44px;
+		justify-content: center;
+		border-radius: 999px;
 		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: 0.66rem;
+		font-weight: 700;
 		text-decoration: none;
-		border-bottom: 1px solid transparent;
-		transition: color var(--dur-micro) var(--ease-editorial);
+		transition: color var(--dur-fast) ease, background-color var(--dur-fast) ease;
 	}
 
 	.lang-picker a:hover {
-		color: var(--color-ink);
+		color: var(--color-text);
 	}
 
-	/* El idioma activo no depende solo del color (§28): también lleva regla. */
-	.lang-picker a[aria-current="true"] {
+	.lang-picker a[aria-current="page"] {
+		background: var(--color-lime);
 		color: var(--color-ink);
-		border-bottom-color: var(--color-ink);
 	}
 </style>

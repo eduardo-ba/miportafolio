@@ -1,36 +1,64 @@
 ---
 interface Props {
-	index: string;
+	eyebrow: string;
 	title: string;
 	id: string;
+	intro?: string;
 }
 
-const { index, title, id } = Astro.props;
+const { eyebrow, title, id, intro } = Astro.props;
 ---
 
-<header class="sec-head">
-	<span class="sec-head__index u-meta" aria-hidden="true">{index}</span>
-	<h2 class="sec-head__title" id={id}>{title}</h2>
+<header class="section-head">
+	<p class="eyebrow section-head__eyebrow">{eyebrow}</p>
+	<div class="section-head__main">
+		<h2 id={id}>{title}</h2>
+		{intro && <p>{intro}</p>}
+	</div>
 </header>
 
 <style>
-	/* Índice diminuto contra título grande: el contraste de escala de la §8. */
-	.sec-head {
-		display: flex;
-		align-items: baseline;
-		gap: 1.25rem;
-		border-top: 1px solid var(--color-ink);
-		padding-top: 1rem;
-		margin-bottom: clamp(2rem, 5vw, 3.5rem);
+	.section-head {
+		display: grid;
+		grid-template-columns: minmax(9rem, 0.34fr) minmax(0, 1fr);
+		gap: clamp(2rem, 6vw, 7rem);
+		align-items: start;
+		margin-bottom: clamp(3rem, 6vw, 5rem);
 	}
 
-	.sec-head__index {
-		color: var(--accent);
+	.section-head__eyebrow {
+		margin-top: 0.45rem;
 	}
 
-	.sec-head__title {
-		font-size: var(--text-xl);
-		font-variation-settings: "wdth" 108;
+	.section-head__main {
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.65fr);
+		gap: clamp(1.5rem, 4vw, 4rem);
+		align-items: end;
+	}
+
+	.section-head h2 {
 		margin: 0;
+		font-size: clamp(2.6rem, 5vw, 5.8rem);
+		font-variation-settings: "wdth" 106;
+	}
+
+	.section-head__main p {
+		margin: 0 0 0.4rem;
+		font-size: clamp(0.98rem, 0.92rem + 0.25vw, 1.15rem);
+		line-height: 1.55;
+		opacity: 0.7;
+	}
+
+	@media (width < 58rem) {
+		.section-head,
+		.section-head__main {
+			grid-template-columns: 1fr;
+			gap: 1.2rem;
+		}
+
+		.section-head__main p {
+			max-width: 42rem;
+		}
 	}
 </style>

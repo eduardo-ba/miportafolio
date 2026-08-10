@@ -1,43 +1,41 @@
-# Astro Starter Kit: Minimal
+# Luis Eduardo Barrón — Web Developer Portfolio
+
+Portafolio personal multilingüe construido con Astro y TypeScript. Presenta proyectos de desarrollo web, experiencia técnica, stack, formación y datos de contacto en español, inglés y francés.
+
+## Características
+
+- Sitio estático rápido, accesible y responsive.
+- Contenido localizado en `es`, `en` y `fr`.
+- Componentes reutilizables y datos tipados.
+- Imágenes optimizadas con `astro:assets`.
+- Canonical, `hreflang`, Open Graph, Twitter Card y datos estructurados.
+- CV descargable actualizado al perfil de Web Developer.
+
+## Desarrollo
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Verificación y build
 
-## 🚀 Project Structure
+```sh
+npm run build
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+El resultado estático se genera en `dist/` y está preparado para desplegarse en Netlify.
+
+## Estructura principal
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/   # Secciones y elementos de interfaz
+├── data/         # Proyectos, habilidades y enlaces
+├── i18n/         # Diccionarios ES / EN / FR
+├── layouts/      # Documento, navegación y metadatos
+├── pages/        # Rutas localizadas
+└── styles/       # Sistema visual global
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+El CV se genera desde `scripts/generate_cv.py` y se publica como `public/cv-luis-eduardo-barron.pdf`.

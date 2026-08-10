@@ -2,143 +2,334 @@
 import { Image } from "astro:assets";
 import portrait from "../assets/luis-eduardo-barron.jpg";
 import { getLangFromUrl, useTranslations } from "../i18n";
-import { location, social } from "../data/site";
+import { cvPath } from "../data/site";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const facts = [
+	{ label: t("hero_fact_1_label"), value: t("hero_fact_1_value") },
+	{ label: t("hero_fact_2_label"), value: t("hero_fact_2_value") },
+	{ label: t("hero_fact_3_label"), value: t("hero_fact_3_value") },
+];
 ---
 
-<section class="hero u-shell" aria-labelledby="hero-name">
-	<p class="hero__issue u-meta">Portfolio — Issue 001 / {location}</p>
+<section class="hero u-shell" aria-labelledby="hero-title">
+	<div class="hero__copy">
+		<p class="eyebrow hero__kicker">{t("home_kicker")}</p>
+		<h1 class="hero__title" id="hero-title">
+			<span>{t("home_title_start")}</span>
+			<em>{t("home_title_accent")}</em>
+		</h1>
+		<p class="hero__intro">{t("home_intro")}</p>
 
-	<h1 class="hero__name" id="hero-name">{t("home_name")}</h1>
-
-	<div class="hero__body">
-		<Image
-			class="hero__portrait"
-			src={portrait}
-			alt={t("home_img_alt")}
-			widths={[320, 560, 900]}
-			sizes="(width < 48rem) 60vw, 24rem"
-			loading="eager"
-			fetchpriority="high"
-		/>
-
-		<div class="hero__aside">
-			<p class="hero__role">{t("home_subtitle")}</p>
-			<dl class="hero__record u-meta">
-				<div><dt>Base</dt><dd>{location}</dd></div>
-				<div><dt>Archive ID</dt><dd>LEB-001</dd></div>
-			</dl>
-			<ul class="hero__links u-meta">
-				<li><a href={social.github}>GitHub</a></li>
-				<li><a href={social.linkedin}>LinkedIn</a></li>
-			</ul>
+		<div class="hero__actions">
+			<a class="button" href="#projects">{t("home_primary_cta")} <span aria-hidden="true">↓</span></a>
+			<a class="button button--ghost" href={cvPath} download>{t("home_secondary_cta")} <span aria-hidden="true">↗</span></a>
 		</div>
+
+		<p class="hero__availability u-meta">
+			<span aria-hidden="true"></span>{t("home_availability")}
+		</p>
 	</div>
+
+	<div class="hero__visual">
+		<div class="portrait-frame">
+			<div class="portrait-frame__top u-meta">
+				<span>LEB.DEV</span>
+				<span>2026</span>
+			</div>
+			<Image
+				class="portrait-frame__image"
+				src={portrait}
+				alt={t("home_img_alt")}
+				widths={[420, 640, 900]}
+				sizes="(width < 48rem) 84vw, 35rem"
+				loading="eager"
+				fetchpriority="high"
+			/>
+			<p class="portrait-frame__name">{t("home_name")}</p>
+		</div>
+
+		<aside class="dev-panel" aria-label={t("hero_panel_label")}>
+			<div class="dev-panel__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+			<p class="dev-panel__label u-meta">{t("hero_panel_label")}</p>
+			<p class="dev-panel__value">{t("hero_panel_value")}</p>
+			<ul class="dev-panel__list u-meta">
+				<li><span>01</span>{t("hero_panel_line_1")}</li>
+				<li><span>02</span>{t("hero_panel_line_2")}</li>
+				<li><span>03</span>{t("hero_panel_line_3")}</li>
+			</ul>
+		</aside>
+	</div>
+
+	<dl class="hero__facts">
+		{facts.map((fact) => (
+			<div>
+				<dt class="u-meta">{fact.label}</dt>
+				<dd>{fact.value}</dd>
+			</div>
+		))}
+	</dl>
 </section>
 
 <style>
 	.hero {
-		padding-block: var(--space-section) calc(var(--space-section) * 0.6);
+		display: grid;
+		grid-template-columns: minmax(0, 1.18fr) minmax(23rem, 0.82fr);
+		gap: clamp(2.5rem, 6vw, 7rem);
+		align-items: center;
+		padding-block: clamp(4.5rem, 8vw, 8rem) clamp(3.5rem, 7vw, 6rem);
 	}
 
-	.hero__issue {
-		margin: 0 0 1.5rem;
+	.hero__copy {
+		position: relative;
+		z-index: 2;
 	}
 
-	/* §8: jerarquía por tamaño + ancho, no por peso. */
-	.hero__name {
-		font-size: var(--text-display);
-		font-variation-settings: "wdth" 112;
+	.hero__kicker {
+		color: var(--color-lime);
+	}
+
+	.hero__title {
 		max-width: 12ch;
-		text-wrap: initial;
-		margin: 0;
+		margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+		font-size: clamp(3.6rem, 7.7vw, 8.2rem);
+		font-variation-settings: "wdth" 112;
 	}
 
-	.hero__body {
-		display: grid;
-		grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
-		gap: clamp(1.5rem, 4vw, 4rem);
-		align-items: end;
-		margin-top: clamp(2rem, 5vw, 4rem);
+	.hero__title span,
+	.hero__title em {
+		display: block;
 	}
 
-	/* §23: aristas rectas. Nada de retrato circular (§31). */
-	.hero__portrait {
-		width: 100%;
-		height: auto;
-		border: 1px solid var(--color-line);
-		filter: grayscale(1) contrast(1.06);
+	.hero__title em {
+		color: var(--color-lime);
+		font-style: normal;
+		font-variation-settings: "wdth" 94;
 	}
 
-	.hero__role {
-		font-family: var(--font-display);
-		font-size: var(--text-lg);
-		font-variation-settings: "wdth" 104;
-		font-weight: 600;
-		line-height: 1.1;
-		margin: 0 0 2rem;
-		max-width: 20ch;
+	.hero__intro {
+		max-width: 42rem;
+		margin-bottom: 2rem;
+		color: var(--color-text-soft);
+		font-size: clamp(1.05rem, 0.96rem + 0.45vw, 1.35rem);
+		line-height: 1.55;
 	}
 
-	/* Registro tipo documento (§16). */
-	.hero__record {
-		display: grid;
-		gap: 0.35rem;
-		margin: 0 0 2rem;
-		border-top: 1px solid var(--color-line);
-		padding-top: 1rem;
-	}
-
-	.hero__record div {
+	.hero__actions {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.75rem;
+		margin-bottom: 2rem;
 	}
 
-	.hero__record dt {
-		min-width: 7rem;
+	.hero__availability {
+		display: flex;
+		max-width: 38rem;
+		align-items: center;
+		gap: 0.7rem;
+		margin: 0;
+		color: var(--color-text-soft);
+		text-transform: none;
+		letter-spacing: 0.03em;
+	}
+
+	.hero__availability span {
+		width: 0.65rem;
+		height: 0.65rem;
+		flex: 0 0 auto;
+		border-radius: 50%;
+		background: var(--color-lime);
+		box-shadow: 0 0 0 0.3rem rgb(200 244 90 / 0.12);
+	}
+
+	.hero__visual {
+		position: relative;
+		padding: 0 clamp(0rem, 1vw, 1rem) 3.5rem 2rem;
+	}
+
+	.hero__visual::before {
+		position: absolute;
+		top: -2.5rem;
+		right: -4rem;
+		width: 19rem;
+		height: 19rem;
+		border: 1px solid var(--color-line-dark);
+		border-radius: 50%;
+		content: "";
+	}
+
+	.portrait-frame {
+		position: relative;
+		z-index: 1;
+		border: 1px solid var(--color-line-dark);
+		border-radius: var(--radius-md);
+		padding: 0.7rem;
+		background: var(--color-panel);
+		transform: rotate(1.5deg);
+	}
+
+	.portrait-frame__top {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.2rem 0.2rem 0.7rem;
 		color: var(--color-muted);
 	}
 
-	.hero__record dd {
-		margin: 0;
-		color: var(--color-ink);
+	.portrait-frame__image {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		border-radius: calc(var(--radius-md) - 0.35rem);
+		object-fit: cover;
+		object-position: center 28%;
+		filter: saturate(0.72) contrast(1.03);
 	}
 
-	.hero__links {
+	.portrait-frame__name {
+		position: absolute;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		left: 1.5rem;
+		margin: 0;
+		color: white;
+		font-size: clamp(1.25rem, 2vw, 2rem);
+		font-weight: 720;
+		line-height: 1;
+		letter-spacing: -0.035em;
+		text-shadow: 0 2px 22px rgb(0 0 0 / 0.75);
+	}
+
+	.dev-panel {
+		position: absolute;
+		right: -1rem;
+		bottom: 0;
+		z-index: 2;
+		width: min(20rem, 75%);
+		border: 1px solid rgb(10 13 12 / 0.45);
+		border-radius: var(--radius-sm);
+		padding: 1rem;
+		background: var(--color-lime);
+		color: var(--color-ink);
+		box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 0.28);
+	}
+
+	.dev-panel__bar {
 		display: flex;
-		gap: 1.5rem;
+		gap: 0.3rem;
+		margin-bottom: 1.2rem;
+	}
+
+	.dev-panel__bar span {
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: 50%;
+		background: var(--color-ink);
+		opacity: 0.35;
+	}
+
+	.dev-panel__label {
+		margin-bottom: 0.45rem;
+		opacity: 0.58;
+	}
+
+	.dev-panel__value {
+		margin-bottom: 1.2rem;
+		font-size: 1.15rem;
+		font-weight: 720;
+		line-height: 1.15;
+	}
+
+	.dev-panel__list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
 
-	.hero__links a {
-		text-decoration: none;
-		border-bottom: 1px solid var(--color-line-strong);
-		padding-bottom: 2px;
-		transition: border-color var(--dur-micro) var(--ease-editorial);
+	.dev-panel__list li {
+		display: grid;
+		grid-template-columns: 2rem 1fr;
+		border-top: 1px solid rgb(10 13 12 / 0.22);
+		padding-block: 0.48rem;
+		letter-spacing: 0.03em;
+		text-transform: none;
 	}
 
-	.hero__links a:hover {
-		border-bottom-color: var(--color-ink);
+	.dev-panel__list span {
+		opacity: 0.5;
 	}
 
-	/* §27: móvil conserva la personalidad, solo se reordena. */
-	@media (width < 48rem) {
-		.hero__name {
-			font-variation-settings: "wdth" 96;
-			max-width: 100%;
-		}
+	.hero__facts {
+		display: grid;
+		grid-column: 1 / -1;
+		grid-template-columns: repeat(3, 1fr);
+		margin: clamp(3rem, 6vw, 6rem) 0 0;
+		border-top: 1px solid var(--color-line-dark);
+	}
 
-		.hero__body {
+	.hero__facts div {
+		padding: 1.25rem 1.5rem 0 0;
+	}
+
+	.hero__facts div + div {
+		border-left: 1px solid var(--color-line-dark);
+		padding-left: 1.5rem;
+	}
+
+	.hero__facts dt {
+		margin-bottom: 0.35rem;
+		color: var(--color-muted);
+	}
+
+	.hero__facts dd {
+		margin: 0;
+		font-size: clamp(0.92rem, 0.85rem + 0.2vw, 1.05rem);
+		font-weight: 600;
+	}
+
+	@media (width < 64rem) {
+		.hero {
 			grid-template-columns: 1fr;
-			align-items: start;
 		}
 
-		.hero__portrait {
-			max-width: 60%;
+		.hero__title {
+			max-width: 10ch;
+		}
+
+		.hero__visual {
+			width: min(100%, 35rem);
+			margin-inline: auto;
+		}
+	}
+
+	@media (width < 38rem) {
+		.hero {
+			padding-top: 3.5rem;
+		}
+
+		.hero__title {
+			font-size: clamp(3.25rem, 15vw, 5.2rem);
+		}
+
+		.hero__visual {
+			padding-left: 0;
+		}
+
+		.dev-panel {
+			right: 0;
+		}
+
+		.hero__facts {
+			grid-template-columns: 1fr;
+		}
+
+		.hero__facts div + div {
+			border-left: 0;
+			padding-left: 0;
+		}
+
+		.hero__facts div {
+			border-bottom: 1px solid var(--color-line-dark);
+			padding-block: 1rem;
 		}
 	}
 </style>

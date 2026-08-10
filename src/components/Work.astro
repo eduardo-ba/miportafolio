@@ -5,145 +5,324 @@ import { projects } from "../data/site";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-/*
-  §6: el color sale de la personalidad del proyecto, no de una paleta.
-  01 es infraestructura física que crece en una escuela → verde (sistemas).
-  02 es simulación de red, todo en pantalla → azul (digital, distancia).
-*/
-const moods = ["green", "blue"] as const;
 ---
 
-<section class="work u-shell" aria-labelledby="work-title">
-	<SectionHead index="01" id="work-title" title={t("projects_title")} />
+<section class="work section-pad" id="projects" aria-labelledby="projects-title">
+	<div class="u-shell">
+		<SectionHead
+			eyebrow={t("projects_eyebrow")}
+			id="projects-title"
+			title={t("projects_title")}
+			intro={t("projects_intro")}
+		/>
 
-	<ol class="work__list">
-		{
-			projects.map((project, i) => (
-				<li class="project" data-mood={moods[i] ?? "blue"}>
-					<span class="project__num" aria-hidden="true">
-						{String(i + 1).padStart(2, "0")}
-					</span>
+		<ol class="work__grid">
+			{projects.map((project, index) => (
+				<li
+					class:list={["project", { "project--lead": index === 0 }]}
+					data-mood={project.mood}
+				>
+					<div class="project__content">
+						<div class="project__top u-meta">
+							<span>{String(index + 1).padStart(2, "0")} / {project.year}</span>
+							{project.featured && <span class="project__featured">{t("project_featured")}</span>}
+						</div>
+						<p class="project__eyebrow u-meta">{t(project.eyebrowKey)}</p>
+						<h3>{t(project.titleKey)}</h3>
+						<p class="project__desc">{t(project.descKey)}</p>
+						<p class="project__note">{t(project.noteKey)}</p>
 
-					<div class="project__main">
-						<h3 class="project__title">{t(project.titleKey)}</h3>
-						<p class="project__desc u-measure">{t(project.descKey)}</p>
-
-						<a class="project__link" href={project.repo}>
-							{t("btn_code")}
-							<span aria-hidden="true">→</span>
-						</a>
+						<div class="project__bottom">
+							<ul class="project__tech u-meta" aria-label={t("tech_used_title")}>
+								{(t(project.techKey) as unknown as string[]).map((tech) => <li>{tech}</li>)}
+							</ul>
+							<a class="text-link" href={project.repo} target="_blank" rel="noreferrer">
+								{t("btn_code")} <span aria-hidden="true">↗</span>
+							</a>
+						</div>
 					</div>
 
-					<div class="project__meta">
-						<h4 class="u-meta project__tech-title">{t("tech_used_title")}</h4>
-						<ul class="project__tech u-meta">
-							{(t(project.techKey) as unknown as string[]).map((tech) => (
-								<li>{tech}</li>
-							))}
-						</ul>
-					</div>
+					{index === 0 && (
+						<div class="project-preview" aria-hidden="true">
+							<div class="project-preview__chrome">
+								<span></span><span></span><span></span>
+								<p>blonded.archive / explorar</p>
+							</div>
+							<div class="project-preview__canvas">
+								<p class="project-preview__tiny">Visual archive / 2011—2026</p>
+								<p class="project-preview__word">BLONDED</p>
+								<div class="project-preview__art"><span>01</span><span>02</span><span>03</span></div>
+								<div class="project-preview__lines"><i></i><i></i><i></i></div>
+							</div>
+						</div>
+					)}
 				</li>
-			))
-		}
-	</ol>
+			))}
+		</ol>
+	</div>
 </section>
 
 <style>
 	.work {
-		padding-block: var(--space-section);
-	}
-
-	.work__list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		gap: clamp(3rem, 7vw, 6rem);
-	}
-
-	.project {
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr) minmax(0, 16rem);
-		gap: clamp(1.5rem, 4vw, 3rem);
-		align-items: start;
-		border-top: 1px solid var(--color-line);
-		padding-top: 1.5rem;
-	}
-
-	/* El número es el ancla editorial de cada entrada (§13). */
-	.project__num {
-		font-family: var(--font-display);
-		font-size: var(--text-lg);
-		font-weight: 800;
-		font-variation-settings: "wdth" 78;
-		line-height: 1;
-		color: var(--accent);
-	}
-
-	.project__title {
-		font-size: var(--text-lg);
-		font-variation-settings: "wdth" 104;
-		margin: 0 0 1rem;
-	}
-
-	.project__desc {
-		margin: 0 0 1.5rem;
-		color: var(--color-ink-soft);
-	}
-
-	/* §24: enlace de texto con flecha, no botón de startup. */
-	.project__link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		text-decoration: none;
-		color: var(--accent);
-		border-bottom: 1px solid currentColor;
-		padding-bottom: 3px;
-		min-height: 44px;
-	}
-
-	.project__link span {
-		transition: transform var(--dur-micro) var(--ease-editorial);
-	}
-
-	.project__link:hover span {
-		transform: translateX(4px);
-	}
-
-	.project__tech-title {
-		margin: 0 0 0.75rem;
+		background: var(--color-paper);
 		color: var(--color-ink);
 	}
 
-	.project__tech {
+	.work__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+
+	.project {
+		--mood: var(--color-blue);
+		position: relative;
+		min-height: 36rem;
+		overflow: hidden;
+		border: 1px solid var(--color-line-light);
+		border-radius: var(--radius-md);
+		background: var(--color-paper-soft);
+		transition: transform var(--dur-ui) var(--ease-out), border-color var(--dur-fast) ease;
+	}
+
+	.project[data-mood="lime"] { --mood: var(--color-lime); }
+	.project[data-mood="coral"] { --mood: var(--color-coral); }
+	.project[data-mood="blue"] { --mood: var(--color-blue); }
+	.project[data-mood="sand"] { --mood: var(--color-sand); }
+
+	.project:hover {
+		transform: translateY(-0.3rem);
+		border-color: rgb(10 13 12 / 0.45);
+	}
+
+	.project--lead {
 		display: grid;
-		gap: 0.3rem;
+		grid-column: 1 / -1;
+		grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1.1fr);
+		min-height: 42rem;
+		background: var(--color-ink);
+		color: var(--color-text);
 	}
 
-	@media (width < 60rem) {
-		.project {
-			grid-template-columns: auto minmax(0, 1fr);
-		}
-		.project__meta {
-			grid-column: 2;
-		}
+	.project__content {
+		display: flex;
+		min-width: 0;
+		flex-direction: column;
+		padding: clamp(1.35rem, 3vw, 2.5rem);
 	}
 
-	@media (width < 40rem) {
-		.project {
+	.project__top {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: clamp(3rem, 7vw, 6rem);
+		color: inherit;
+		opacity: 0.65;
+	}
+
+	.project__featured {
+		border: 1px solid currentColor;
+		border-radius: 999px;
+		padding: 0.25rem 0.6rem;
+	}
+
+	.project__eyebrow {
+		margin-bottom: 1rem;
+		color: var(--mood);
+	}
+
+	.project h3 {
+		max-width: 12ch;
+		margin-bottom: 1.25rem;
+		font-size: clamp(2.4rem, 4.4vw, 5rem);
+		font-variation-settings: "wdth" 105;
+	}
+
+	.project:not(.project--lead) h3 {
+		font-size: clamp(2.25rem, 3.5vw, 3.8rem);
+	}
+
+	.project__desc {
+		max-width: 39rem;
+		margin-bottom: 1rem;
+		font-size: clamp(1rem, 0.94rem + 0.25vw, 1.18rem);
+		line-height: 1.55;
+	}
+
+	.project__note {
+		max-width: 39rem;
+		margin-bottom: 2rem;
+		opacity: 0.64;
+		font-size: 0.9rem;
+		line-height: 1.55;
+	}
+
+	.project__bottom {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1.5rem;
+		margin-top: auto;
+		border-top: 1px solid currentColor;
+		padding-top: 1.2rem;
+	}
+
+	.project__tech {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		letter-spacing: 0.03em;
+		text-transform: none;
+	}
+
+	.project__tech li {
+		border: 1px solid currentColor;
+		border-radius: 999px;
+		padding: 0.3rem 0.55rem;
+		opacity: 0.7;
+	}
+
+	.project .text-link {
+		color: inherit;
+	}
+
+	.project-preview {
+		align-self: center;
+		margin: clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem) 0;
+		border: 1px solid rgb(244 245 236 / 0.24);
+		border-radius: 0.8rem;
+		background: #f2eee5;
+		box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.35);
+		color: var(--color-ink);
+		transform: rotate(1deg);
+	}
+
+	.project-preview__chrome {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		border-bottom: 1px solid var(--color-line-light);
+		padding: 0.75rem;
+	}
+
+	.project-preview__chrome span {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: var(--color-ink);
+		opacity: 0.2;
+	}
+
+	.project-preview__chrome p {
+		margin: 0 0 0 auto;
+		font-family: var(--font-mono);
+		font-size: 0.58rem;
+		opacity: 0.45;
+	}
+
+	.project-preview__canvas {
+		position: relative;
+		min-height: 30rem;
+		overflow: hidden;
+		padding: clamp(1.3rem, 3vw, 2.5rem);
+		background:
+			linear-gradient(rgb(10 13 12 / 0.05) 1px, transparent 1px),
+			linear-gradient(90deg, rgb(10 13 12 / 0.05) 1px, transparent 1px);
+		background-size: 2.5rem 2.5rem;
+	}
+
+	.project-preview__tiny {
+		margin-bottom: 4rem;
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+	}
+
+	.project-preview__word {
+		position: relative;
+		z-index: 2;
+		margin: 0;
+		font-size: clamp(3.5rem, 8vw, 8.5rem);
+		font-weight: 850;
+		line-height: 0.8;
+		letter-spacing: -0.08em;
+	}
+
+	.project-preview__art {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr 1fr;
+		gap: 0.5rem;
+		margin-top: -0.25rem;
+	}
+
+	.project-preview__art span {
+		display: flex;
+		min-height: 9rem;
+		align-items: flex-end;
+		padding: 0.65rem;
+		background: #f08f4f;
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+	}
+
+	.project-preview__art span:nth-child(2) { background: #a8b5d5; }
+	.project-preview__art span:nth-child(3) { background: #c7f08d; }
+
+	.project-preview__lines {
+		display: grid;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+	}
+
+	.project-preview__lines i {
+		display: block;
+		width: 100%;
+		height: 1px;
+		background: var(--color-line-light);
+	}
+
+	.project-preview__lines i:nth-child(2) { width: 75%; }
+	.project-preview__lines i:nth-child(3) { width: 48%; }
+
+	@media (width < 66rem) {
+		.project--lead {
 			grid-template-columns: 1fr;
 		}
-		.project__meta {
-			grid-column: 1;
+
+		.project-preview {
+			margin: 0 1.5rem 1.5rem;
+		}
+	}
+
+	@media (width < 70rem) {
+		.work__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.project--lead {
+			grid-column: auto;
+		}
+	}
+
+	@media (width < 34rem) {
+		.project {
+			min-height: 32rem;
+		}
+
+		.project__top {
+			margin-bottom: 3rem;
+		}
+
+		.project__featured {
+			display: none;
 		}
 	}
 </style>

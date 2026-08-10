@@ -7,84 +7,107 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="archive u-shell" aria-labelledby="archive-title">
-	<SectionHead index="04" id="archive-title" title={t("addl_training_title")} />
+<section class="training section-pad" id="training" aria-labelledby="training-title">
+	<div class="u-shell">
+		<SectionHead
+			eyebrow={t("certs_eyebrow")}
+			id="training-title"
+			title={t("certs_title")}
+			intro={t("certs_intro")}
+		/>
 
-	{/* §18: documentos de archivo, no tarjetas de certificado. */}
-	<ul class="archive__list">
-		{
-			certifications.map((cert, i) => (
-				<li class="doc">
-					<span class="doc__id u-meta" aria-hidden="true">
-						LEB-C{String(i + 1).padStart(2, "0")}
-					</span>
-					<a class="doc__name" href={cert.url}>
-						{t(cert.labelKey)}
+		<ul class="training__list">
+			{certifications.map((cert, index) => (
+				<li>
+					<span class="training__index u-meta">C-{String(index + 1).padStart(2, "0")}</span>
+					<div>
+						<h3>{t(cert.labelKey)}</h3>
+						<p class="u-meta">{cert.issuer}</p>
+					</div>
+					<a href={cert.url} target="_blank" rel="noreferrer">
+						<span class="u-meta">{t("cert_verify")}</span><b aria-hidden="true">↗</b>
 					</a>
-					<span class="doc__issuer u-meta">{cert.issuer}</span>
-					<span class="doc__type u-meta" aria-hidden="true">
-						Certificate
-					</span>
 				</li>
-			))
-		}
-	</ul>
+			))}
+		</ul>
+	</div>
 </section>
 
 <style>
-	.archive {
-		padding-block: var(--space-section);
+	.training {
+		border-top: 1px solid var(--color-line-light);
+		background: var(--color-paper-soft);
+		color: var(--color-ink);
 	}
 
-	.archive__list {
+	.training__list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		border-top: 1px solid var(--color-line);
+		border-top: 1px solid var(--color-line-light);
 	}
 
-	/* Fila de índice/directorio: legible primero, retro después (§17). */
-	.doc {
+	.training__list li {
 		display: grid;
-		grid-template-columns: 6rem minmax(0, 1fr) minmax(0, 14rem) 7rem;
-		gap: 1.5rem;
-		align-items: baseline;
-		border-bottom: 1px solid var(--color-line);
-		padding-block: 1rem;
-		transition: background-color var(--dur-micro) var(--ease-editorial);
+		grid-template-columns: 5rem minmax(0, 1fr) auto;
+		gap: clamp(1rem, 4vw, 4rem);
+		align-items: center;
+		border-bottom: 1px solid var(--color-line-light);
+		padding-block: 1.35rem;
+		transition: padding-inline var(--dur-ui) var(--ease-out), background-color var(--dur-fast) ease;
 	}
 
-	.doc:hover {
-		background: var(--color-paper-clean);
+	.training__list li:hover {
+		padding-inline: 1rem;
+		background: var(--color-paper);
 	}
 
-	.doc__id {
-		color: var(--color-muted);
+	.training__index {
+		color: rgb(10 13 12 / 0.5);
 	}
 
-	.doc__name {
-		font-family: var(--font-display);
-		font-size: var(--text-md);
-		font-weight: 600;
+	.training h3 {
+		margin-bottom: 0.35rem;
+		font-size: clamp(1.2rem, 2vw, 1.8rem);
+		line-height: 1.12;
+		letter-spacing: -0.025em;
+	}
+
+	.training__list p {
+		margin: 0;
+		color: rgb(10 13 12 / 0.52);
+	}
+
+	.training__list a {
+		display: flex;
+		min-height: 2.75rem;
+		align-items: center;
+		gap: 0.8rem;
 		text-decoration: none;
-		border-bottom: 1px solid transparent;
-		transition: border-color var(--dur-micro) var(--ease-editorial);
 	}
 
-	.doc__name:hover {
-		border-bottom-color: var(--color-ink);
+	.training__list a b {
+		display: grid;
+		width: 2.5rem;
+		height: 2.5rem;
+		place-items: center;
+		border: 1px solid var(--color-line-light);
+		border-radius: 50%;
+		font-weight: 500;
+		transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) ease;
 	}
 
-	.doc__type {
-		text-align: right;
+	.training__list a:hover b {
+		transform: rotate(45deg);
+		background: var(--color-lime);
 	}
 
-	@media (width < 56rem) {
-		.doc {
-			grid-template-columns: 1fr;
-			gap: 0.35rem;
+	@media (width < 42rem) {
+		.training__list li {
+			grid-template-columns: 3rem 1fr auto;
 		}
-		.doc__type {
+
+		.training__list a span {
 			display: none;
 		}
 	}

@@ -1,28 +1,5 @@
-/*
-  Sistema visual del portafolio.
-  Referencia: .claude/skills/art-direction/SKILL.md
-
-  Reglas que este archivo hace cumplir:
-  §5  fundación cálida, nunca #FFFFFF plano
-  §6  color emocional por contexto, no un acento global
-  §7  roles tipográficos (display / body / metadata)
-  §8  contraste de escala agresivo
-  §10 escala de espaciado
-  §23 bordes rectos, radios bajos, sin sombras SaaS
-  §25 duraciones y easing de movimiento
-  §28 contraste verificado, foco visible, reduced-motion
-*/
-
 @import "tailwindcss";
 
-/*
-  Fuentes autoalojadas: cero peticiones externas (§29).
-  Los .woff2 salen de los paquetes @fontsource-variable (ver public/fonts/*-OFL.txt
-  para las licencias). Se declaran a mano en vez de importar el CSS del paquete
-  por dos razones: solo se despliega el subset latin (el sitio es es/en/fr), y el
-  nombre de archivo es estable, lo que permite hacerles <link rel="preload">.
-  Un solo archivo por familia cubre todos los pesos y anchos.
-*/
 @font-face {
   font-family: "Archivo Variable";
   src: url("/fonts/archivo-latin-variable.woff2") format("woff2-variations");
@@ -30,9 +7,6 @@
   font-stretch: 62% 125%;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -41,106 +15,68 @@
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@theme {
-  /* ---- Fundación (§5) ---------------------------------------------------
-     Nada de #FFFFFF salvo que la composición pida blanco clínico. */
-  --color-paper: #f3f0e7;
-  --color-paper-clean: #faf9f5;
-  --color-ink: #11110f;
-  --color-ink-soft: #2a2924;
-  /* La guía sugiere #77736A, pero da 4.15:1 sobre papel y reprueba AA para
-     texto. Oscurecido a 4.94:1 — §28 manda sobre el valor sugerido. */
-  --color-muted: #6b675e;
-  --color-line: rgb(17 17 15 / 0.18);
-  --color-line-strong: rgb(17 17 15 / 0.42);
-
-  /* ---- Tipografía (§7) --------------------------------------------------
-     Una sola familia variable cubre display y body: los roles se separan por
-     eje (ancho + peso), no por descarga extra. Metadata en mono. */
-  --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-
-  /* ---- Escala tipográfica (§8) ------------------------------------------ */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.15vw, 0.8rem);
-  --text-sm: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
-  --text-md: clamp(1rem, 0.95rem + 0.3vw, 1.2rem);
-  --text-lg: clamp(1.3rem, 1.1rem + 0.8vw, 2rem);
-  --text-xl: clamp(2rem, 1.4rem + 2.5vw, 4rem);
-  --text-display: clamp(4rem, 10vw, 10rem);
-
-  /* ---- Bordes (§23) -----------------------------------------------------
-     Aristas rectas por defecto. 16px+ solo si un componente lo justifica. */
-  --radius-xs: 2px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-
-  /* ---- Movimiento (§25) ------------------------------------------------- */
-  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  /* Duraciones (§25). Micro 150–250 · interfaz 250–450 · editorial 450–900. */
-  --dur-micro: 200ms;
-  --dur-ui: 320ms;
-  --dur-editorial: 640ms;
-
-  /* Respiro de sección (§10): 56–96px móvil, 96–160px escritorio.
-     No todas las secciones deben medir lo mismo; esta es la base. */
-  --space-section: clamp(3.5rem, 9vw, 10rem);
-  /* Margen lateral del contenido. */
-  --space-gutter: clamp(1.25rem, 5vw, 5rem);
-  --measure: 68ch;
-
-  /* Acento por defecto: ninguno. El color emocional lo fija cada contexto. */
-  --accent: var(--color-ink);
-  --accent-surface: var(--color-ink);
-  --accent-on-surface: var(--color-paper);
+  --color-bg: #0b0e0d;
+  --color-bg-soft: #121715;
+  --color-panel: #171c1a;
+  --color-paper: #f2efe6;
+  --color-paper-soft: #e6e1d5;
+  --color-ink: #0a0d0c;
+  --color-text: #f4f5ec;
+  --color-text-soft: #b9beb5;
+  --color-muted: #7e857d;
+  --color-lime: #c8f45a;
+  --color-coral: #ff735d;
+  --color-blue: #78aef8;
+  --color-sand: #d7bd8b;
+  --color-line-dark: rgb(244 245 236 / 0.16);
+  --color-line-light: rgb(10 13 12 / 0.18);
+  --font-display: "Archivo Variable", Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", Consolas, monospace;
+  --space-gutter: clamp(1.1rem, 4vw, 4.5rem);
+  --space-section: clamp(5rem, 10vw, 9.5rem);
+  --shell: 88rem;
+  --radius-sm: 0.6rem;
+  --radius-md: 1.1rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-ui: 360ms;
 }
 
-/*
-  Color emocional (§6). No hay un acento global: una sección o proyecto declara
-  su propio estado con `data-mood`, y el sitio regresa al neutro fuera de él.
-  Todos los pares están verificados ≥4.5:1 (§28).
-*/
-[data-mood="blue"]   { --accent: #1f3d6e; --accent-surface: #14294b; --accent-on-surface: var(--color-paper); }
-[data-mood="red"]    { --accent: #9e2b1c; --accent-surface: #6e1c12; --accent-on-surface: var(--color-paper); }
-[data-mood="orange"] { --accent: #a8501a; --accent-surface: #7a3a11; --accent-on-surface: var(--color-paper); }
-[data-mood="green"]  { --accent: #2c5233; --accent-surface: #1c3521; --accent-on-surface: var(--color-paper); }
-[data-mood="yellow"] { --accent: #6f5310; --accent-surface: #e0a92b; --accent-on-surface: var(--color-ink); }
-[data-mood="pink"]   { --accent: #96305a; --accent-surface: #6b1f3f; --accent-on-surface: var(--color-paper); }
-[data-mood="purple"] { --accent: #4b2e6b; --accent-surface: #32204a; --accent-on-surface: var(--color-paper); }
-
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    background: var(--color-bg);
   }
 
   body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-    font-family: var(--font-body);
-    font-size: var(--text-md);
-    /* Body en ancho normal y peso normal: el display se distingue por eje. */
-    font-variation-settings: "wdth" 100;
+    min-width: 20rem;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
     line-height: 1.6;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Los títulos heredan silueta de display; el tamaño lo pone cada sección
-     con las utilidades text-*, no un valor fijo por etiqueta (§8). */
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+  h1, h2, h3, p {
+    margin-top: 0;
+  }
+
+  h1, h2, h3 {
+    font-weight: 750;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
     text-wrap: balance;
   }
 
@@ -148,68 +84,146 @@
     text-wrap: pretty;
   }
 
-  /* Metadata: fechas, IDs, stacks, etiquetas (§7). */
-  .u-meta {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-  }
-
-  /* Enlaces: subrayado que crece, sin botones de startup (§24). */
   a {
     color: inherit;
-    text-decoration-color: var(--color-line-strong);
-    text-underline-offset: 0.2em;
-    transition: text-decoration-color var(--dur-micro) var(--ease-editorial);
-  }
-
-  a:hover {
-    text-decoration-color: currentColor;
-  }
-
-  /* §28: el foco siempre visible, sin excepción por diseño experimental. */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  ::selection {
-    background: var(--color-ink);
-    color: var(--color-paper);
   }
 
   img, picture, svg, video {
     display: block;
     max-width: 100%;
-    height: auto;
   }
 
-  /* §25: soportar siempre reduced-motion. */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 4px;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
   }
 }
 
 @layer components {
-  /* Contenedor base. Los márgenes grandes son parte del sistema (§9). */
   .u-shell {
-    width: 100%;
+    width: min(100%, var(--shell));
     margin-inline: auto;
     padding-inline: var(--space-gutter);
-    max-width: 90rem;
   }
 
-  .u-measure {
-    max-width: var(--measure);
+  .section-pad {
+    padding-block: var(--space-section);
+  }
+
+  .u-meta,
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: clamp(0.68rem, 0.64rem + 0.12vw, 0.78rem);
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.35rem;
+    color: inherit;
+  }
+
+  .eyebrow::before {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    border: 1px solid var(--color-lime);
+    border-radius: 999px;
+    padding: 0.7rem 1.25rem;
+    background: var(--color-lime);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) ease,
+      color var(--dur-fast) ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button--ghost {
+    border-color: var(--color-line-dark);
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  .button--ghost:hover {
+    border-color: var(--color-text);
+  }
+
+  .text-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .text-link span {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .text-link:hover span {
+    transform: translate(0.2rem, -0.2rem);
+  }
+}
+
+@media (width < 42rem) {
+  :root {
+    --space-gutter: 1rem;
+    --space-section: 4.75rem;
+  }
+
+  .button {
+    padding-inline: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

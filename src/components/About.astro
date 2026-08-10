@@ -1,142 +1,200 @@
 ---
 import SectionHead from "./SectionHead.astro";
 import { getLangFromUrl, useTranslations } from "../i18n";
-import { cvPath, location } from "../data/site";
+import { cvPath, social } from "../data/site";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const experience = [
+	{ date: t("about_web_date"), role: t("about_web_role"), desc: t("about_web_desc") },
+	{ date: t("about_support_date"), role: t("about_support_role"), desc: t("about_support_desc") },
+	{ date: t("about_freelance_date"), role: t("about_freelance_role"), desc: t("about_freelance_desc") },
+];
 ---
 
-<section class="about u-shell" aria-labelledby="about-title">
-	<SectionHead index="03" id="about-title" title={t("about_title")} />
+<section class="about section-pad" id="about" aria-labelledby="about-title">
+	<div class="u-shell">
+		<SectionHead
+			eyebrow={t("about_eyebrow")}
+			id="about-title"
+			title={t("about_title")}
+			intro={t("about_desc")}
+		/>
 
-	<div class="about__grid">
-		<div class="about__prose">
-			<p class="about__lead u-measure">{t("about_desc")}</p>
+		<div class="about__grid">
+			<aside class="bridge">
+				<p class="u-meta">{t("about_bridge_title")}</p>
+				<p class="bridge__text">{t("about_bridge_desc")}</p>
+				<dl>
+					<div>
+						<dt class="u-meta">{t("about_education_label")}</dt>
+						<dd>{t("about_education_value")}</dd>
+					</div>
+					<div>
+						<dt class="u-meta">{t("about_language_label")}</dt>
+						<dd>{t("about_language_value")}</dd>
+					</div>
+				</dl>
+				<div class="bridge__actions">
+					<a class="bridge__cv" href={cvPath} download>{t("btn_cv")} <span aria-hidden="true">↗</span></a>
+					<a class="bridge__github" href={social.github} target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+				</div>
+			</aside>
 
-			<div class="about__block u-measure">
-				<h3 class="u-meta">{t("about_edu_title")}</h3>
-				<p>{t("about_edu_desc")}</p>
-			</div>
-
-			<div class="about__block u-measure">
-				<h3 class="u-meta">{t("about_exp_title")}</h3>
-				<p>{t("about_exp_desc")}</p>
-			</div>
-
-			<a class="about__cv" href={cvPath} download>
-				{t("btn_cv")}
-				<span aria-hidden="true">↓</span>
-			</a>
+		<div class="timeline">
+			<p class="timeline__label u-meta">{t("about_trajectory_title")}</p>
+			<ol>
+				{experience.map((item, index) => (
+					<li>
+						<div class="timeline__date u-meta"><span>0{index + 1}</span>{item.date}</div>
+						<div>
+							<h3>{item.role}</h3>
+							<p>{item.desc}</p>
+						</div>
+					</li>
+				))}
+			</ol>
 		</div>
-
-		{/* §16: registro de archivo original, no una réplica de documento ajeno. */}
-		<aside class="record" aria-label={t("about_title")}>
-			<p class="record__head u-meta">Personal Archive Record</p>
-			<dl class="record__list u-meta">
-				<div><dt>Name</dt><dd>{t("home_name")}</dd></div>
-				<div><dt>Field</dt><dd>{t("home_subtitle")}</dd></div>
-				<div><dt>Base</dt><dd>{location}</dd></div>
-				<div><dt>{t("lang_title")}</dt><dd>{t("lang_es")}<br />{t("lang_en")}</dd></div>
-				<div><dt>Archive ID</dt><dd>LEB-001</dd></div>
-			</dl>
-		</aside>
+	</div>
 	</div>
 </section>
 
 <style>
 	.about {
-		padding-block: var(--space-section);
+		background: var(--color-paper);
+		color: var(--color-ink);
 	}
 
 	.about__grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
-		gap: clamp(2rem, 5vw, 4.5rem);
+		grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+		gap: clamp(2rem, 7vw, 8rem);
 		align-items: start;
 	}
 
-	.about__lead {
-		font-family: var(--font-display);
-		font-size: var(--text-lg);
-		font-variation-settings: "wdth" 102;
-		font-weight: 500;
-		line-height: 1.25;
-		margin: 0 0 2.5rem;
+	.bridge {
+		position: sticky;
+		top: 7rem;
+		border-radius: var(--radius-md);
+		padding: clamp(1.5rem, 3vw, 2.4rem);
+		background: var(--color-ink);
+		color: var(--color-text);
 	}
 
-	.about__block {
-		margin-bottom: 2rem;
+	.bridge > .u-meta {
+		margin-bottom: 2.5rem;
+		color: var(--color-lime);
 	}
 
-	.about__block h3 {
-		margin: 0 0 0.5rem;
-		color: var(--color-ink);
+	.bridge__text {
+		margin-bottom: 3rem;
+		font-size: clamp(1.2rem, 1.04rem + 0.6vw, 1.65rem);
+		font-weight: 550;
+		line-height: 1.35;
 	}
 
-	.about__block p {
+	.bridge dl {
+		margin: 0 0 2rem;
+	}
+
+	.bridge dl div {
+		border-top: 1px solid var(--color-line-dark);
+		padding-block: 1rem;
+	}
+
+	.bridge dt {
+		margin-bottom: 0.35rem;
+		color: var(--color-muted);
+	}
+
+	.bridge dd {
 		margin: 0;
-		color: var(--color-ink-soft);
+		color: var(--color-text-soft);
+		font-size: 0.92rem;
+		line-height: 1.45;
 	}
 
-	.about__cv {
+	.bridge__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+	}
+
+	.bridge__cv,
+	.bridge__github {
 		display: inline-flex;
+		min-height: 2.75rem;
 		align-items: center;
 		gap: 0.5rem;
-		min-height: 44px;
+		color: var(--color-lime);
 		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
 		text-decoration: none;
-		border: 1px solid var(--color-ink);
-		padding: 0.75rem 1.25rem;
-		transition:
-			background-color var(--dur-micro) var(--ease-editorial),
-			color var(--dur-micro) var(--ease-editorial);
+		text-transform: uppercase;
 	}
 
-	/* §24: el texto se invierte, no hay degradado ni sombra. */
-	.about__cv:hover {
-		background: var(--color-ink);
-		color: var(--color-paper);
+	.bridge__github {
+		color: var(--color-text);
 	}
 
-	.record {
-		border: 1px solid var(--color-ink);
-		padding: 1.25rem;
-		background: var(--color-paper-clean);
+	.timeline__label {
+		margin-bottom: 1.5rem;
 	}
 
-	.record__head {
-		margin: 0 0 1rem;
-		padding-bottom: 0.75rem;
-		border-bottom: 1px solid var(--color-ink);
-		color: var(--color-ink);
+	.timeline ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
 	}
 
-	.record__list {
+	.timeline li {
 		display: grid;
-		gap: 0.85rem;
-		margin: 0;
+		grid-template-columns: minmax(8rem, 0.38fr) minmax(0, 1fr);
+		gap: clamp(1.5rem, 4vw, 4rem);
+		border-top: 1px solid var(--color-line-light);
+		padding-block: clamp(1.75rem, 4vw, 3rem);
 	}
 
-	.record__list dt {
-		color: var(--color-muted);
-		margin-bottom: 0.2rem;
+	.timeline__date {
+		display: flex;
+		gap: 1.2rem;
+		color: rgb(10 13 12 / 0.62);
 	}
 
-	.record__list dd {
-		margin: 0;
+	.timeline__date span {
 		color: var(--color-ink);
-		text-transform: none;
-		letter-spacing: 0.02em;
-		line-height: 1.5;
 	}
 
-	@media (width < 56rem) {
+	.timeline h3 {
+		margin-bottom: 0.8rem;
+		font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+		line-height: 1.05;
+		letter-spacing: -0.035em;
+	}
+
+	.timeline p {
+		max-width: 42rem;
+		margin: 0;
+		color: rgb(10 13 12 / 0.68);
+		line-height: 1.55;
+	}
+
+	@media (width < 60rem) {
 		.about__grid {
 			grid-template-columns: 1fr;
+		}
+
+		.bridge {
+			position: static;
+		}
+	}
+
+	@media (width < 38rem) {
+		.timeline li {
+			grid-template-columns: 1fr;
+			gap: 1rem;
 		}
 	}
 </style>

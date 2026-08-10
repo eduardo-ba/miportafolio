@@ -8,6 +8,7 @@ import {
 	localeTags,
 	languages,
 } from "../i18n";
+import { social } from "../data/site";
 
 interface Props {
 	title?: string;
@@ -16,23 +17,27 @@ interface Props {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const { title = t("page_title"), description = t("about_desc") } = Astro.props;
-
-// Astro.site puede ser undefined si no se configuró `site` en astro.config.mjs.
-const canonical = Astro.site
-	? new URL(Astro.url.pathname, Astro.site).href
-	: undefined;
-
-// Ruta actual sin el prefijo de idioma, para construir las alternativas.
+const { title = t("page_title"), description = t("page_description") } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const basePath = Astro.url.pathname.replace(/^\/(en|fr)(?=\/|$)/, "") || "/";
 const alternates = Astro.site
-	? languages.map((l) => ({
-			lang: l,
-			tag: localeTags[l],
-			href: new URL(localizePath(basePath, l), Astro.site).href,
+	? languages.map((language) => ({
+			lang: language,
+			tag: localeTags[language],
+			href: new URL(localizePath(basePath, language), Astro.site).href,
 		}))
 	: [];
+const homePath = localizePath("/", lang);
+const ogImage = Astro.site ? new URL("/og.png", Astro.site).href : undefined;
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: t("home_name"),
+	jobTitle: t("home_kicker").split("·")[0]?.trim(),
+	url: canonical,
+	sameAs: [social.github, social.linkedin],
+	knowsAbout: ["Astro", "TypeScript", "JavaScript", "Web Development", "Networks", "Linux"],
+};
 ---
 
 <!doctype html>
@@ -41,26 +46,17 @@ const alternates = Astro.site
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-
+		<meta name="theme-color" content="#0b0e0d" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		{canonical && <link rel="canonical" href={canonical} />}
-
-		{
-			alternates.map((a) => (
-				<link rel="alternate" hreflang={a.tag} href={a.href} />
-			))
-		}
-		{
-			alternates.length > 0 && (
-				<link rel="alternate" hreflang="x-default" href={alternates[0]!.href} />
-			)
-		}
-
+		{alternates.map((alternate) => (
+			<link rel="alternate" hreflang={alternate.tag} href={alternate.href} />
+		))}
+		{alternates.length > 0 && (
+			<link rel="alternate" hreflang="x-default" href={alternates[0]!.href} />
+		)}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-		{/* §29: el nombre a tamaño display es lo primero que se ve; sin preload
-		    el navegador descubre la fuente hasta parsear el CSS. */}
 		<link
 			rel="preload"
 			href="/fonts/archivo-latin-variable.woff2"
@@ -68,28 +64,180 @@ const alternates = Astro.site
 			type="font/woff2"
 			crossorigin
 		/>
-
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content={localeTags[lang].replace("-", "_")} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		{canonical && <meta property="og:url" content={canonical} />}
+		{ogImage && <meta property="og:image" content={ogImage} />}
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{ogImage && <meta name="twitter:image" content={ogImage} />}
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	</head>
 	<body>
-		<header class="site-head u-shell">
-			<LanguagePicker />
+		<a class="skip-link" href="#main">{t("skip_content")}</a>
+		<header class="site-head">
+			<div class="site-head__inner u-shell">
+				<a class="brand" href={homePath} aria-label={t("brand_label")}>
+					<span class="brand__mark">LEB<span aria-hidden="true">/</span></span>
+					<span class="brand__role">Web Developer</span>
+				</a>
+				<nav class="main-nav" aria-label="Primary">
+					<a href="#projects">{t("nav_projects")}</a>
+					<a href="#stack">{t("nav_skills")}</a>
+					<a href="#about">{t("nav_about")}</a>
+					<a href="#training">{t("nav_certs")}</a>
+				</nav>
+				<div class="site-head__actions">
+					<LanguagePicker />
+					<a class="head-contact" href="#contact">{t("nav_contact")} <span aria-hidden="true">↘</span></a>
+				</div>
+			</div>
 		</header>
 		<slot />
 	</body>
-
-	<style>
-		/* §12: navegación ligera, sin chrome de dashboard. */
-		.site-head {
-			display: flex;
-			justify-content: flex-end;
-			padding-block: 1.25rem;
-			border-bottom: 1px solid var(--color-line);
-		}
-	</style>
 </html>
+
+<style>
+	.skip-link {
+		position: fixed;
+		top: 0.75rem;
+		left: 0.75rem;
+		z-index: 100;
+		transform: translateY(-200%);
+		border-radius: 999px;
+		padding: 0.7rem 1rem;
+		background: var(--color-lime);
+		color: var(--color-ink);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.skip-link:focus {
+		transform: translateY(0);
+	}
+
+	.site-head {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		border-bottom: 1px solid var(--color-line-dark);
+		background: rgb(11 14 13 / 0.88);
+		backdrop-filter: blur(18px);
+	}
+
+	.site-head__inner {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		min-height: 4.5rem;
+		align-items: center;
+		gap: clamp(1rem, 3vw, 3.25rem);
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		text-decoration: none;
+	}
+
+	.brand__mark {
+		font-size: 1rem;
+		font-weight: 850;
+		letter-spacing: -0.04em;
+	}
+
+	.brand__mark span {
+		color: var(--color-lime);
+	}
+
+	.brand__role {
+		border-left: 1px solid var(--color-line-dark);
+		padding-left: 0.75rem;
+		color: var(--color-text-soft);
+		font-family: var(--font-mono);
+		font-size: 0.67rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.main-nav {
+		display: flex;
+		justify-content: center;
+		gap: clamp(1rem, 2.5vw, 2.5rem);
+	}
+
+	.main-nav a,
+	.head-contact {
+		position: relative;
+		font-family: var(--font-mono);
+		font-size: 0.69rem;
+		font-weight: 650;
+		letter-spacing: 0.05em;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	.main-nav a::after {
+		position: absolute;
+		right: 0;
+		bottom: -0.35rem;
+		left: 0;
+		height: 1px;
+		transform: scaleX(0);
+		background: var(--color-lime);
+		content: "";
+		transition: transform var(--dur-fast) var(--ease-out);
+	}
+
+	.main-nav a:hover::after {
+		transform: scaleX(1);
+	}
+
+	.site-head__actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.head-contact {
+		display: inline-flex;
+		min-height: 2.35rem;
+		align-items: center;
+		gap: 0.45rem;
+		border: 1px solid var(--color-line-dark);
+		border-radius: 999px;
+		padding-inline: 0.9rem;
+		transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease;
+	}
+
+	.head-contact:hover {
+		border-color: var(--color-lime);
+		color: var(--color-lime);
+	}
+
+	@media (width < 70rem) {
+		.site-head__inner {
+			grid-template-columns: auto 1fr;
+		}
+
+		.main-nav {
+			display: none;
+		}
+
+		.site-head__actions {
+			justify-content: flex-end;
+		}
+	}
+
+	@media (width < 35rem) {
+		.brand__role,
+		.head-contact {
+			display: none;
+		}
+	}
+</style>

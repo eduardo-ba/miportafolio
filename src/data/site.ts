@@ -1,13 +1,7 @@
 import type { TranslationKey } from "../i18n";
 
-/**
- * Datos que no dependen del idioma: URLs, correo, enlaces de verificación.
- * Los textos visibles viven en `src/i18n/*.json`; aquí solo se referencian por clave.
- */
-
 export const email = "leduardobarron@gmail.com";
-
-/** Igual en los tres idiomas, así que es dato y no traducción. */
+export const phone = "+52 669 329 2473";
 export const location = "Mazatlán, MX";
 
 export const social = {
@@ -17,10 +11,105 @@ export const social = {
 
 export const cvPath = "/cv-luis-eduardo-barron.pdf";
 
+export interface Project {
+	titleKey: TranslationKey;
+	eyebrowKey: TranslationKey;
+	descKey: TranslationKey;
+	noteKey: TranslationKey;
+	techKey: TranslationKey;
+	repo: string;
+	year: string;
+	featured?: boolean;
+	mood: "lime" | "coral" | "blue" | "sand";
+}
+
+export const projects: Project[] = [
+	{
+		titleKey: "p1_title",
+		eyebrowKey: "p1_eyebrow",
+		descKey: "p1_desc",
+		noteKey: "p1_note",
+		techKey: "p1_tech_list",
+		repo: "https://github.com/eduardo-ba/Pagina_Web_FrankOcean",
+		year: "2026",
+		featured: true,
+		mood: "lime",
+	},
+	{
+		titleKey: "p2_title",
+		eyebrowKey: "p2_eyebrow",
+		descKey: "p2_desc",
+		noteKey: "p2_note",
+		techKey: "p2_tech_list",
+		repo: "https://github.com/eduardo-ba/miportafolio",
+		year: "2026",
+		featured: true,
+		mood: "coral",
+	},
+	{
+		titleKey: "p3_title",
+		eyebrowKey: "p3_eyebrow",
+		descKey: "p3_desc",
+		noteKey: "p3_note",
+		techKey: "p3_tech_list",
+		repo: "https://github.com/eduardo-ba/sitio-web-responsivo",
+		year: "2025",
+		mood: "blue",
+	},
+	{
+		titleKey: "p4_title",
+		eyebrowKey: "p4_eyebrow",
+		descKey: "p4_desc",
+		noteKey: "p4_note",
+		techKey: "p4_tech_list",
+		repo: "https://github.com/eduardo-ba/red-CETIS127",
+		year: "2024",
+		mood: "sand",
+	},
+];
+
+export interface SkillGroup {
+	titleKey: TranslationKey;
+	index: string;
+	items: string[];
+}
+
+export const skills: SkillGroup[] = [
+	{
+		titleKey: "skills_front_title",
+		index: "01",
+		items: ["TypeScript", "JavaScript", "HTML", "CSS", "Responsive UI", "Accessibility"],
+	},
+	{
+		titleKey: "skills_frameworks_title",
+		index: "02",
+		items: ["Astro", "React", "Node.js", "Vite", "SEO técnico"],
+	},
+	{
+		titleKey: "skills_data_title",
+		index: "03",
+		items: ["MySQL", "SQLite", "Firebase", "Python", "Java"],
+	},
+	{
+		titleKey: "skills_workflow_title",
+		index: "04",
+		items: ["Git", "GitHub", "Linux", "VS Code", "Redes & servidores"],
+	},
+];
+
+export interface Capability {
+	titleKey: TranslationKey;
+	descKey: TranslationKey;
+}
+
+export const capabilities: Capability[] = [
+	{ titleKey: "cap_1_title", descKey: "cap_1_desc" },
+	{ titleKey: "cap_2_title", descKey: "cap_2_desc" },
+	{ titleKey: "cap_3_title", descKey: "cap_3_desc" },
+];
+
 export interface Certification {
-	/** Clave en los diccionarios i18n. */
 	labelKey: TranslationKey;
-	/** Enlace de verificación del emisor. */
 	url: string;
 	issuer: "Cisco Networking Academy" | "Capacítate para el Empleo";
 }
@@ -55,55 +144,5 @@ export const certifications: Certification[] = [
 		labelKey: "cert_cabling",
 		issuer: "Capacítate para el Empleo",
 		url: "https://capacitateparaelempleo.org/verifica/c0dc2a1a-48ff-4f41-bbba-fa27d0166de7/0832df80-f62a-46bb-b47a-fc5ebbdad964",
-	},
-];
-
-export interface SkillGroup {
-	titleKey: TranslationKey;
-	items: string[];
-}
-
-/**
- * §15: nada de píldoras de colores. Los nombres son el contenido; el orden
- * dentro de cada grupo va de más a menos usado, no alfabético.
- */
-export const skills: SkillGroup[] = [
-	{
-		titleKey: "skills_lang_title",
-		items: ["Python", "Java", "JavaScript", "Kotlin", "C", "C++", "HTML", "CSS"],
-	},
-	{
-		titleKey: "skills_fw_title",
-		items: ["Node.js", "React", "Android SDK", "OpenCV"],
-	},
-	{
-		titleKey: "skills_db_title",
-		items: ["MySQL", "SQLite", "Firebase"],
-	},
-	{
-		titleKey: "skills_tools_title",
-		items: ["Cisco Packet Tracer", "GitHub", "GitLab", "VS Code", "Android Studio"],
-	},
-];
-
-export interface Project {
-	titleKey: TranslationKey;
-	descKey: TranslationKey;
-	techKey: TranslationKey;
-	repo: string;
-}
-
-export const projects: Project[] = [
-	{
-		titleKey: "p1_title",
-		descKey: "p1_desc",
-		techKey: "p1_tech_list",
-		repo: "https://github.com/eduardo-ba/red-CETIS127",
-	},
-	{
-		titleKey: "p2_title",
-		descKey: "p2_desc",
-		techKey: "p2_tech_list",
-		repo: "https://github.com/eduardo-ba/packet-tracer-practicas",
 	},
 ];
