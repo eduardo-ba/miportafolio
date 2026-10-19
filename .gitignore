@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # claude code local settings (el skill en .claude/skills/ sí se versiona)
 .claude/settings.local.json
+
+# Entornos locales adicionales
+.env.*
+!.env.example

@@ -14,7 +14,7 @@ Portafolio personal multilingüe construido con Astro y TypeScript. Presenta pro
 ## Desarrollo
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
@@ -39,3 +39,17 @@ src/
 ```
 
 El CV se genera desde `scripts/generate_cv.py` y se publica como `public/cv-luis-eduardo-barron.pdf`.
+
+
+## Entorno reproducible
+
+Usa una versión de Node.js compatible con Astro (`>=22.12.0` según el lockfile) y ejecuta `npm ci` para instalar las versiones de `package-lock.json`. Conserva el lockfile en los commits que cambien dependencias.
+
+
+## Contribuir y organizar commits
+
+Consulta [CONTRIBUTING.md](CONTRIBUTING.md) para crear ramas, escribir commits y verificar los cambios antes de abrir un pull request.
+
+## Verificación automática
+
+El workflow [Build](.github/workflows/build.yml) compila el proyecto en cada pull request y cada actualización de `main`. También puede ejecutarse manualmente desde la pestaña Actions.
